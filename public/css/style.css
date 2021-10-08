@@ -9,15 +9,15 @@
 
 /*------------------- header menu -----------------------*/
 
-.header-menu{
-    padding: 15px 0 !important;
+.app-bar{
+    padding: 10px 0 !important;
     box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
 
 }
 
 /*------------------- bottom menu -----------------------*/
 
-.bottom-menu{
+.bottom-bar{
     position: absolute;
     bottom: 0;
     width: 100%;
@@ -25,19 +25,22 @@
     box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
 }
 
-.bottom-menu a{
+.bottom-bar a{
     text-align: center;
     padding: 15px;
     color: #000;
 }
 
-.bottom-menu a p{
+.bottom-bar a p{
     font-size: 12px;
     text-transform: uppercase;
 }
 
 
 /* --------------sidebar-------------- */
+#show-sidebar{
+  font-size: 20px;
+}
 
 @keyframes swing {
     0% {
@@ -79,9 +82,9 @@
       opacity: 0;
     }
   }
-  body {
+  /* body {
     font-size: 0.9rem;
-  }
+  } */
   .page-wrapper .sidebar-wrapper,
   .sidebar-wrapper .sidebar-brand > a,
   .sidebar-wrapper .sidebar-dropdown > a:after,
