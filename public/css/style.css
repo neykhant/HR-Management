@@ -1,3 +1,10 @@
+.badge{
+  padding: 6px;
+  font-size: 12px;
+}
+.btn{
+  font-size: 14px !important;
+}
 .btn-theme {
     color: #fff;
     background-color: #4CD195 !important;
@@ -7,7 +14,7 @@
     color: #fff;
 }
 
-/*------------------- header menu -----------------------*/
+/*------------------- header Bar -----------------------*/
 
 .app-bar{
     padding: 10px 0 !important;
@@ -15,7 +22,15 @@
 
 }
 
-/*------------------- bottom menu -----------------------*/
+.app-bar a{
+  color: #000;
+}
+/*------------ content --------------- */
+.content{
+  height: 85vh;
+  overflow: scroll;
+}
+/*------------------- bottom Bar -----------------------*/
 
 .bottom-bar{
     position: absolute;
@@ -27,7 +42,7 @@
 
 .bottom-bar a{
     text-align: center;
-    padding: 15px;
+    padding: 5px 25px;
     color: #000;
 }
 
@@ -486,5 +501,10 @@
   
   .chiller-theme .sidebar-footer>a:last-child {
       border-right: none;
+  }
+
+  /*---------- datatable-------------- */
+  .pagination .page-item.active .page-link {
+    background: #4CD195 !important ;
   }
   
