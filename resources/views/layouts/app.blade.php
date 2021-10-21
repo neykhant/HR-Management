@@ -26,6 +26,8 @@
 
     <!-- Datatable -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css">
+    
     <!-- date range picker -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
@@ -162,9 +164,9 @@
     <!-- sidebar -->
 
     <!-- Datatable -->
-
     <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
     <!-- date range picker js -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
@@ -173,7 +175,6 @@
     <script type="text/javascript" src="{{ url('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
     <!-- sweetalert2 -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 
     <script>
         $(function($) {
@@ -217,10 +218,18 @@
                 }
             });
 
-
             @if(session('create'))
             Swal.fire({
                 title: 'Successfully Create.',
+                text: "{{ session('create') }}",
+                icon: 'success',
+                confirmButtonText: 'Continue'
+            })
+            @endif
+
+            @if(session('update'))
+            Swal.fire({
+                title: 'Successfully Update.',
                 text: "{{ session('create') }}",
                 icon: 'success',
                 confirmButtonText: 'Continue'
