@@ -4,7 +4,7 @@
 
 <div class="card">
     <div class="card-body">
-        <form action="{{ route('employee.store') }}" method="POST" id="create-form">
+        <form action="{{ route('employee.store') }}" method="POST" id="create-form" enctype="multipart/form-data">
             @csrf
 
             <div class="md-form">
@@ -72,6 +72,14 @@
                 </select>
             </div>
 
+            <div class="form-group">
+                <label for="profile_img">Name</label>
+                <input type="file" name="profile_img" class="form-control py-1" id="profile_img">
+                <div class="preview_img my-2">
+
+                </div>
+            </div>
+
             <div class="md-form">
                 <label for="">Password</label>
                 <input type="password" name="password" class="form-control">
@@ -116,6 +124,14 @@
                 "format": "YYYY-MM-DD",
             }
         });
+
+        $('#profile_img').on('change', function() {
+            var file_length = document.getElementById('profile_img').files.length;
+            $('.preview_img').html('');
+            for (var i = 0; i < file_length; i++) {
+                $('.preview_img').append(`<img src="${URL.createObjectURL(event.target.files[i])}" />`);
+            }
+        })
     })
 </script>
 @endsection

@@ -32,6 +32,7 @@
 /*------------------- bottom Bar -----------------------*/
 
 .bottom-bar {
+    background: #fff;
     position: absolute;
     bottom: 0;
     width: 100%;
@@ -519,12 +520,12 @@
 }
 
 .paginate_button {
-  font-size: 14px !important;
-  background-color: #eee !important;
-  margin: 0px 2px;
+    font-size: 14px !important;
+    background-color: #eee !important;
+    margin: 0px 2px;
 }
 
-.action_icon a{
+.action_icon a {
     padding: 5px;
     background: #eee;
     border-radius: 5px;
@@ -533,11 +534,31 @@
     line-height: 25px;
     display: inline-block;
     margin: 3px !important;
-
 }
 /* .btn-theme:hover {
   color: #fff;
 } */
+
+@media screen and (max-width: 767px) {
+    div.dataTables_wrapper div.dataTables_filter label {
+        width: 100%;
+    }
+
+    div.dataTables_wrapper div.dataTables_filter input {
+        width: 75%;
+    }
+
+    div.dataTables_wrapper div.dataTables_length,
+    div.dataTables_wrapper div.dataTables_filter,
+    div.dataTables_wrapper div.dataTables_info,
+    div.dataTables_wrapper div.dataTables_paginate {
+        text-align: left;
+    }
+
+    div.dataTables_wrapper div.dataTables_paginate ul.pagination {
+        justify-content: start !important;
+    }
+}
 
 @media screen and (max-width: 767px) {
     div.dataTables_wrapper div.dataTables_length,
@@ -545,6 +566,9 @@
     div.dataTables_wrapper div.dataTables_info,
     div.dataTables_wrapper div.dataTables_paginate {
         text-align: left !important;
+    }
+    div.dataTables_wrapper div.dataTables_paginate ul.pagination {
+        justify-content: start !important;
     }
 
     div.dataTables_wrapper div.dataTables_paginate ul.pagination {
@@ -554,16 +578,35 @@
     div.dataTables_wrapper div.dataTables_filter input {
         width: 70% !important;
     }
-    
+
     div.dataTables_wrapper div.dataTables_filter label {
         width: 100% !important;
     }
 }
-
-
 
 /* @media screen and (max-width: 767px) {
     div.dataTables_wrapper div.dataTables_paginate ul.pagination {
         justify-content: start;
     }
 } */
+
+/* --------------preview-img------------------ */
+
+.preview_img img {
+    width: 100px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    margin: 3px;
+}
+
+.profile-img{
+    width: 140px;
+    height: 140px;
+    border-radius: 100%;
+    border: 1px solid #5cb85c;
+    padding: 3px;
+}
+
+.border-dash{
+    border-left: 2px dashed #ddd;
+}

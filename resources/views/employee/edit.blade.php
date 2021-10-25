@@ -4,7 +4,7 @@
 
 <div class="card">
     <div class="card-body">
-        <form action="{{ route('employee.update', $employee->id) }}" method="POST" id="edit-form">
+        <form action="{{ route('employee.update', $employee->id) }}" method="POST" id="edit-form" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
@@ -73,9 +73,27 @@
                 </select>
             </div>
 
+            <div class="form-group">
+                <label for="profile_img">Name</label>
+                <input type="file" name="profile_img" class="form-control py-1" id="profile_img">
+
+                <!-- <div class="preview_img my-2">
+                    @if($employee->profile_img)
+                    <img src="{{ $employee->profile_img_path() }}" alt="">
+                    @endif
+                </div> -->
+
+                <div class="preview_img my-2">
+                    @if($employee->profile_img)
+                    <img src="{{$employee->profile_img_path()}}" alt="">
+                    @endif
+                </div>
+
+            </div>
+
             <div class="md-form">
                 <label for="">Password</label>
-                <input type="password" name="password" class="form-control" >
+                <input type="password" name="password" class="form-control">
             </div>
 
             <div class="d-flex justify-content-center mt-5 mb-3">
@@ -117,6 +135,15 @@
                 "format": "YYYY-MM-DD",
             }
         });
+
+        $('#profile_img').on('change', function() {
+            var file_length = document.getElementById('profile_img').files.length;
+            $('.preview_img').html('');
+            for (var i = 0; i < file_length; i++) {
+                $('.preview_img').append(`<img src="${URL.createObjectURL(event.target.files[i])}" />`);
+            }
+        })
+
     })
 </script>
 @endsection
