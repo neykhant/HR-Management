@@ -27,7 +27,7 @@
     <!-- Datatable -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css">
-    
+
     <!-- date range picker -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
@@ -105,7 +105,11 @@
             <div class="d-flex justify-content-center">
                 <div class="col-md-8">
                     <div class="d-flex justify-content-between">
+                        @if(request()->is('/'))
                         <a href="#" id="show-sidebar"><i class="fas fa-bars"></i></a>
+                        @else
+                        <a href="#" id="back-btn"><i class="fas fa-chevron-left"></i></a>
+                        @endif
                         <h5 class="mb-0">@yield('title')</h5>
                         <a href=""></a>
                     </div>
@@ -167,6 +171,10 @@
     <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/plug-ins/1.10.13/features/mark.js/datatables.mark.js"></script>
+    <script src="https://cdn.jsdelivr.net/g/mark.js(jquery.mark.min.js)"></script>
+
+
     <!-- date range picker js -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
@@ -176,8 +184,23 @@
     <!-- sweetalert2 -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    <!-- sweet alert -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
     <script>
         $(function($) {
+
+            let token = document.head.querySelector('meta[name="csrf-token"]');
+            if (token) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': token.content
+                    }
+                });
+            } else {
+                console.error('CSRF Token not found.');
+            }
 
             $(".sidebar-dropdown > a").click(function() {
                 $(".sidebar-submenu").slideUp(200);
@@ -210,10 +233,10 @@
                 $(".page-wrapper").addClass("toggled");
             });
 
-            document.addEventListener('click', function(event){
-                if(document.getElementById('show-sidebar').contains(event.target)){
+            document.addEventListener('click', function(event) {
+                if (document.getElementById('show-sidebar').contains(event.target)) {
                     $(".page-wrapper").addClass("toggled");
-                }else if(!document.getElementById('sidebar').contains(event.target)){
+                } else if (!document.getElementById('sidebar').contains(event.target)) {
                     $(".page-wrapper").removeClass("toggled");
                 }
             });
@@ -235,6 +258,43 @@
                 confirmButtonText: 'Continue'
             })
             @endif
+
+            $.extend(true, $.fn.dataTable.defaults, {
+                responsive: true,
+                processing: true,
+                serverSide: true,
+                mark: true,
+                columnDefs: [{
+                        "targets": [0],
+                        "class": "control"
+                    },
+                    {
+                        "targets": 'no-sort',
+                        "sortable": false
+                    },
+                    {
+                        "targets": 'no-search',
+                        "searchable": false
+                    },
+                    {
+                        "targets": 'hidden',
+                        "visible": false
+                    }
+                ],
+                language: {
+                    "paginate": {
+                        "previous": "<i class='far fa-arrow-alt-circle-left'></i>",
+                        "next": "<i class='far fa-arrow-alt-circle-right'></i>"
+                    },
+                    "processing": "<img src='/image/load.gif' style='width:50px'/> <p class='my-3' >... Loading ...</p>",
+                },
+            });
+
+            $('#back-btn').on('click', function(e){
+                e.preventDefault();
+                window.history.go(-1);
+                return false;
+            })
         });
     </script>
 

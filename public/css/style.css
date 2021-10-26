@@ -1,3 +1,7 @@
+body {
+    background: #edf2f6;
+}
+
 .badge {
     padding: 6px;
     font-size: 12px;
@@ -14,9 +18,13 @@
     color: #fff;
 }
 
+.table td, .table th {
+    vertical-align: middle;
+}
 /*------------------- header Bar -----------------------*/
 
 .app-bar {
+    background: #fff;
     padding: 10px 0 !important;
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
 }
@@ -533,11 +541,15 @@
     height: 32px;
     line-height: 25px;
     display: inline-block;
-    margin: 3px !important;
+    margin: 2px !important;
+    text-align: center;
 }
-/* .btn-theme:hover {
-  color: #fff;
-} */
+
+mark {
+    background: orange;
+    /* color: black; */
+    padding: 0px !important;
+}
 
 @media screen and (max-width: 767px) {
     div.dataTables_wrapper div.dataTables_filter label {
@@ -599,7 +611,7 @@
     margin: 3px;
 }
 
-.profile-img{
+.profile-img {
     width: 140px;
     height: 140px;
     border-radius: 100%;
@@ -607,6 +619,13 @@
     padding: 3px;
 }
 
-.border-dash{
+.border-dash {
     border-left: 2px dashed #ddd;
+}
+.profile-thumnail {
+    width: 70px;
+    height: 70px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    padding: 3px;
 }
