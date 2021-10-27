@@ -639,4 +639,8 @@ mark {
     padding: 3px;
 }
 
+.abc{
+    width: 100%;
+}
+
 /* heroku deploy with laravel into database mysql project */
