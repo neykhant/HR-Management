@@ -3,8 +3,9 @@ body {
 }
 
 .badge {
-    padding: 6px;
+    padding: 6px 10px 3px;
     font-size: 12px;
+    box-shadow: none !important;
 }
 .btn {
     font-size: 14px !important;
@@ -18,7 +19,12 @@ body {
     color: #fff;
 }
 
-.table td, .table th {
+.text-theme {
+    color: #4cd195;
+}
+
+.table td,
+.table th {
     vertical-align: middle;
 }
 /*------------------- header Bar -----------------------*/
@@ -221,6 +227,9 @@ body {
     object-fit: cover;
     height: 100%;
     width: 100%;
+    padding: 3 px;
+    border-radius: 10 px;
+    background: #eee;
 }
 
 .sidebar-wrapper .sidebar-header .user-info {
@@ -435,13 +444,13 @@ body {
 /*-----------------------------chiller-theme-------------------------------------------------*/
 
 .chiller-theme .sidebar-wrapper {
-    background: #31353d;
+    background: #2D3747;
 }
 
 .chiller-theme .sidebar-wrapper .sidebar-header,
 .chiller-theme .sidebar-wrapper .sidebar-search,
 .chiller-theme .sidebar-wrapper .sidebar-menu {
-    border-top: 1px solid #3a3f48;
+    border-top: 1px solid #2D3747;
 }
 
 .chiller-theme .sidebar-wrapper .sidebar-search input.search-menu,
@@ -485,7 +494,7 @@ body {
     a:hover:before,
 .chiller-theme .sidebar-wrapper .sidebar-search input.search-menu:focus + span,
 .chiller-theme .sidebar-wrapper .sidebar-menu .sidebar-dropdown.active a i {
-    color: #16c7ff;
+    color: #4cd195;
     text-shadow: 0px 0px 10px rgba(22, 199, 255, 0.5);
 }
 
@@ -612,8 +621,8 @@ mark {
 }
 
 .profile-img {
-    width: 140px;
-    height: 140px;
+    width: 95px;
+    height: 95px;
     border-radius: 100%;
     border: 1px solid #5cb85c;
     padding: 3px;

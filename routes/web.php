@@ -16,11 +16,13 @@ use Illuminate\Support\Facades\Route;
 Auth::routes(['register' => false]);
 
 Route::middleware('auth')->group(function(){
-    Route::get('/', 'PageController@home');
+    Route::get('/', 'PageController@home')->name('home');
 
     Route::resource('employee', 'EmployeeController');
 
     Route::get('employee/datatable/ssd', 'EmployeeController@ssd');
+
+    Route::get('profile', 'ProfileController@profile')->name('profile.profile');
 });
 
 

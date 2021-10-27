@@ -48,13 +48,15 @@
                 </div>
                 <div class="sidebar-header">
                     <div class="user-pic">
-                        <img class="img-responsive img-rounded" src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg" alt="User picture">
+                        <img class="img-responsive img-rounded" 
+                        src="{{ auth()->user()->profile_img_path() }}"
+                         alt="">
                     </div>
                     <div class="user-info">
-                        <span class="user-name">Jhon
-                            <strong>Smith</strong>
+                        <span class="user-name">
+                            {{ auth()->user()->name }}
                         </span>
-                        <span class="user-role">Administrator</span>
+                        <span class="user-role">{{ auth()->user()->department ? auth()->user()->department->title : 'No Department' }}</span>
                         <span class="user-status">
                             <i class="fa fa-circle"></i>
                             <span>Online</span>
@@ -129,7 +131,7 @@
             <div class="d-flex justify-content-center">
                 <div class="col-md-8">
                     <div class="d-flex justify-content-between">
-                        <a href="">
+                        <a href="{{ route('home') }}">
                             <i class="fas fa-home"></i>
                             <p class="mb-0">Home</p>
                         </a>
@@ -141,9 +143,9 @@
                             <i class="fas fa-home"></i>
                             <p class="mb-0">Home</p>
                         </a>
-                        <a href="">
-                            <i class="fas fa-home"></i>
-                            <p class="mb-0">Home</p>
+                        <a href="{{ route('profile.profile') }}">
+                            <i class="fas fa-user"></i>
+                            <p class="mb-0">Profile</p>
                         </a>
                     </div>
                 </div>
@@ -154,6 +156,7 @@
     <!-- page-wrapper -->
 
     <!-- material bootstrap  -->
+
     <!-- JQuery -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
