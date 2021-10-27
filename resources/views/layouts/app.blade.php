@@ -236,6 +236,7 @@
                 $(".page-wrapper").addClass("toggled");
             });
 
+            @if(request()->is('/'))
             document.addEventListener('click', function(event) {
                 if (document.getElementById('show-sidebar').contains(event.target)) {
                     $(".page-wrapper").addClass("toggled");
@@ -243,6 +244,7 @@
                     $(".page-wrapper").removeClass("toggled");
                 }
             });
+            @endif
 
             @if(session('create'))
             Swal.fire({
