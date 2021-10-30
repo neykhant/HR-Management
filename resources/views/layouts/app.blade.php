@@ -79,6 +79,24 @@
                                 <span>Employees</span>
                             </a>
                         </li>
+                        <li>
+                            <a href="{{route('department.index')}}">
+                                <i class="fas fa-sitemap"></i>
+                                <span>Departments</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{route('role.index')}}">
+                                <i class="fas fa-user-shield"></i>
+                                <span>Roles</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{route('permission.index')}}">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>Permssion</span>
+                            </a>
+                        </li>
                         <!-- <li class="sidebar-dropdown">
                             <a href="#">
                                 <i class="fa fa-globe"></i>
@@ -100,7 +118,6 @@
                 <!-- sidebar-menu  -->
             </div>
             <!-- sidebar-content  -->
-
         </nav>
         <!-- sidebar-wrapper  -->
         <div class="app-bar">
