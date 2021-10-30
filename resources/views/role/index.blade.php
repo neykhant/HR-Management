@@ -11,6 +11,7 @@
                 <th class="text-center no-sort no-search"></th>
                 <!-- <th class="text-center no-sort"></th> -->
                 <th class="text-center">Name</th>
+                <th class="text-center">Permission</th>
                 <th class="text-center no-sort">Action</th>
                 <th class="text-center hidden">Update at</th>
             </thead>
@@ -36,6 +37,11 @@
                     class: "text-center"
                 },
                 {
+                    data: 'permissions',
+                    name: 'permissions',
+                    class: "text-center"
+                },
+                {
                     data: 'action',
                     name: 'action',
                     class: "text-center"
@@ -47,7 +53,7 @@
                 },
             ],
             order: [
-                [3, "desc"]
+                [4, "desc"]
             ],
         });
 

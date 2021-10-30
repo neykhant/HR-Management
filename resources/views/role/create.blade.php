@@ -12,6 +12,17 @@
                 <input type="text" name="name" class="form-control" autocomplete="off">
             </div>
 
+            <div class="row">
+                @foreach($permissions as $permission)
+                <div class="col-md-3 col-6">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" name="permissions[]" class="custom-control-input" id="checkbox_{{ $permission->id }}" value="{{ $permission->name }}">
+                        <label class="custom-control-label" for="checkbox_{{ $permission->id }}">{{ $permission->name }}</label>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+
             <div class="d-flex justify-content-center mt-5 mb-3">
                 <div class="col-md-6">
                     <button type="submit" class="btn btn-theme btn-sm btn-block">Confirm</button>
@@ -28,7 +39,6 @@
 {!! JsValidator::formRequest('App\Http\Requests\StoreRoleRequest', '#create-form') !!}
 
 <script>
-    $(document).ready(function() {
-    })
+    $(document).ready(function() {})
 </script>
 @endsection
