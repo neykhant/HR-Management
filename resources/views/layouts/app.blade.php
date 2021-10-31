@@ -73,30 +73,38 @@
                                 <span>Home</span>
                             </a>
                         </li>
+                        @can('view_employee')
                         <li>
                             <a href="{{route('employee.index')}}">
                                 <i class="fas fa-users"></i>
                                 <span>Employees</span>
                             </a>
                         </li>
+                        @endcan
+                        @can('view_department')
                         <li>
                             <a href="{{route('department.index')}}">
                                 <i class="fas fa-sitemap"></i>
                                 <span>Departments</span>
                             </a>
                         </li>
+                        @endcan
+                        @can('view_role')
                         <li>
                             <a href="{{route('role.index')}}">
                                 <i class="fas fa-user-shield"></i>
                                 <span>Roles</span>
                             </a>
                         </li>
+                        @endcan
+                        @can('view_permission')
                         <li>
                             <a href="{{route('permission.index')}}">
                                 <i class="fas fa-shield-alt"></i>
                                 <span>Permssion</span>
                             </a>
                         </li>
+                        @endcan
                         <!-- <li class="sidebar-dropdown">
                             <a href="#">
                                 <i class="fa fa-globe"></i>
@@ -213,7 +221,6 @@
 
     <script>
         $(function($) {
-
             let token = document.head.querySelector('meta[name="csrf-token"]');
             if (token) {
                 $.ajaxSetup({
@@ -256,7 +263,7 @@
                 $(".page-wrapper").addClass("toggled");
             });
 
-            @if(request()-> is('/'))
+            @if(request() -> is('/'))
             document.addEventListener('click', function(event) {
                 if (document.getElementById('show-sidebar').contains(event.target)) {
                     $(".page-wrapper").addClass("toggled");

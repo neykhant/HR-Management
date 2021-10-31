@@ -16,11 +16,17 @@ class EmployeeController extends Controller
 {
     public function index()
     {
+        if(!auth()->user()->can('view_employee')){
+            abort(403, 'Unauthorized action.');
+        }
         return view('employee.index');
     }
 
     public function ssd(Request $request)
     {
+        if(!auth()->user()->can('view_employee')){
+            abort(403, 'Unauthorized action.');
+        }
         // $employees = User::query();
         $employees = User::with('department');
         return DataTables()::of($employees)
@@ -53,9 +59,21 @@ class EmployeeController extends Controller
                 return Carbon::parse($each->updated_at)->format('Y-m-d H-i-s');
             })
             ->addColumn('action', function ($each) {
-                $edit_icon = '<a href="' . route('employee.edit', $each->id) . '" class="text-warning"><i class="far fa-edit" ></i></a>';
-                $info_icon = '<a href="' . route('employee.show', $each->id) . '" class="text-primary"><i class="fas fa-info-circle" ></i></a>';
-                $delete_icon = '<a href="#" class="text-danger delete-btn" data-id="' . $each->id . '" ><i class="fas fa-trash-alt" ></i></a>';
+                $edit_icon = '';
+                $info_icon = '';
+                $delete_icon = '';
+
+                if (auth()->user()->can('edit_employee')) {
+                    $edit_icon = '<a href="' . route('employee.edit', $each->id) . '" class="text-warning"><i class="far fa-edit" ></i></a>';
+                }
+
+                if (auth()->user()->can('view_employee')) {
+                    $info_icon = '<a href="' . route('employee.show', $each->id) . '" class="text-primary"><i class="fas fa-info-circle" ></i></a>';
+                }
+
+                if (auth()->user()->can('delete_employee')) {
+                    $delete_icon = '<a href="#" class="text-danger delete-btn" data-id="' . $each->id . '" ><i class="fas fa-trash-alt" ></i></a>';
+                }
 
                 return '<div class="action_icon" >' . $edit_icon . $info_icon . $delete_icon . '</div>';
             })
@@ -68,6 +86,9 @@ class EmployeeController extends Controller
 
     public function create()
     {
+        if(!auth()->user()->can('create_employee')){
+            abort(403, 'Unauthorized action.');
+        }
         $roles = Role::all();
         $departments = Department::orderBy('title')->get();
         return view('employee.create', compact('departments','roles'));
@@ -75,6 +96,9 @@ class EmployeeController extends Controller
 
     public function store(StoreEmployeeRequest $request)
     {
+        if(!auth()->user()->can('create_employee')){
+            abort(403, 'Unauthorized action.');
+        }
         $profile_img_name = null;
         if ($request->hasFile('profile_img')) {
             $profile_img_file = $request->file('profile_img');
@@ -106,6 +130,9 @@ class EmployeeController extends Controller
 
     public function edit($id)
     {
+        if(!auth()->user()->can('edit_employee')){
+            abort(403, 'Unauthorized action.');
+        }
         $employee = User::findOrFail($id);
         $roles = Role::all();
         $old_roles = $employee->roles->pluck('id')->toArray();
@@ -116,6 +143,9 @@ class EmployeeController extends Controller
 
     public function update($id, UpdateEmployeeRequest $request)
     {
+        if(!auth()->user()->can('edit_employee')){
+            abort(403, 'Unauthorized action.');
+        }
 
         $employee = User::findOrFail($id);
 
@@ -150,12 +180,18 @@ class EmployeeController extends Controller
 
     public function show($id)
     {
+        if(!auth()->user()->can('view_employee')){
+            abort(403, 'Unauthorized action.');
+        }
         $employee = User::findOrFail($id);
         return view('employee.show', compact('employee'));
     }
 
     public function destroy($id)
     {
+        if(!auth()->user()->can('delete_employee')){
+            abort(403, 'Unauthorized action.');
+        }
         $employee = User::findOrFail($id);
         $employee->delete();
 

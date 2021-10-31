@@ -2,7 +2,9 @@
 @section('title', 'Roles')
 @section('content')
 <div>
+    @can('create_role')
     <a href="{{ route('role.create') }}" class="btn btn-theme btn-sm"><i class="fas fa-plus-circle"></i> Create Role</a>
+    @endcan
 </div>
 <div class="card">
     <div class="card-body">
@@ -24,7 +26,7 @@
 <script>
     $(document).ready(function() {
         var table = $('.Datatable').DataTable({
-            
+
             ajax: '/role/datatable/ssd',
             columns: [{
                     data: 'plus-icon',

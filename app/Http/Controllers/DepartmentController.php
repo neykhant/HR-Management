@@ -18,18 +18,32 @@ class DepartmentController extends Controller
 {
     public function index()
     {
+        if (!auth()->user()->can('view_department')) {
+            abort(403, 'Unauthorized action.');
+        }
+
         return view('department.index');
     }
 
     public function ssd(Request $request)
     {
+        if (!auth()->user()->can('view_department')) {
+            abort(403, 'Unauthorized action.');
+        }
+
         // $employees = User::query();
         $departments = Department::query();
         return DataTables()::of($departments)
             ->addColumn('action', function ($each) {
-                $edit_icon = '<a href="' . route('department.edit', $each->id) . '" class="text-warning"><i class="far fa-edit" ></i></a>';
-                // $info_icon = '<a href="' . route('department.show', $each->id) . '" class="text-primary"><i class="fas fa-info-circle" ></i></a>';
-                $delete_icon = '<a href="#" class="text-danger delete-btn" data-id="' . $each->id . '" ><i class="fas fa-trash-alt" ></i></a>';
+                $edit_icon = '';
+                $delete_icon = '';
+
+                if (auth()->user()->can('edit_department')) {
+                    $edit_icon = '<a href="' . route('department.edit', $each->id) . '" class="text-warning"><i class="far fa-edit" ></i></a>';
+                }
+                if (auth()->user()->can('delete_department')) {
+                    $delete_icon = '<a href="#" class="text-danger delete-btn" data-id="' . $each->id . '" ><i class="fas fa-trash-alt" ></i></a>';
+                }
 
                 return '<div class="action_icon" >' . $edit_icon . $delete_icon . '</div>';
             })
@@ -42,12 +56,17 @@ class DepartmentController extends Controller
 
     public function create()
     {
+        if (!auth()->user()->can('create_department')) {
+            abort(403, 'Unauthorized action.');
+        }
         return view('department.create');
     }
 
     public function store(StoreDepartmentRequest $request)
     {
-
+        if (!auth()->user()->can('create_department')) {
+            abort(403, 'Unauthorized action.');
+        }
         $department = new Department();
         $department->title = $request->title;
         $department->save();
@@ -57,13 +76,18 @@ class DepartmentController extends Controller
 
     public function edit($id)
     {
+        if (!auth()->user()->can('edit_department')) {
+            abort(403, 'Unauthorized action.');
+        }
         $department = Department::findOrFail($id);
         return view('department.edit', compact('department'));
     }
 
     public function update($id, UpdateDepartmentRequest $request)
     {
-
+        if (!auth()->user()->can('edit_department')) {
+            abort(403, 'Unauthorized action.');
+        }
         $department = Department::findOrFail($id);
         $department->title = $request->title;
         $department->update();
@@ -71,14 +95,17 @@ class DepartmentController extends Controller
         return redirect()->route('department.index')->with('update', 'Department is successfully updated.');
     }
 
-    public function show($id)
-    {
-        $department = Department::findOrFail($id);
-        return view('department.show', compact('department'));
-    }
+    // public function show($id)
+    // {
+    //     $department = Department::findOrFail($id);
+    //     return view('department.show', compact('department'));
+    // }
 
     public function destroy($id)
     {
+        if(!auth()->user()->can('delete_department')){
+            abort(403, 'Unauthorized action.');
+        }
         $department = Department::findOrFail($id);
         $department->delete();
 

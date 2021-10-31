@@ -2,7 +2,9 @@
 @section('title', 'Permissions')
 @section('content')
 <div>
+    @can('create_permission')
     <a href="{{ route('permission.create') }}" class="btn btn-theme btn-sm"><i class="fas fa-plus-circle"></i> Create Permission</a>
+    @endcan
 </div>
 <div class="card">
     <div class="card-body">
@@ -23,7 +25,7 @@
 <script>
     $(document).ready(function() {
         var table = $('.Datatable').DataTable({
-            
+
             ajax: '/permission/datatable/ssd',
             columns: [{
                     data: 'plus-icon',

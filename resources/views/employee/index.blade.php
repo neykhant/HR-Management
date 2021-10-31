@@ -2,7 +2,9 @@
 @section('title', 'Employees')
 @section('content')
 <div>
+    @can('create_employee')
     <a href="{{ route('employee.create') }}" class="btn btn-theme btn-sm"><i class="fas fa-plus-circle"></i> Create Employee</a>
+    @endcan
 </div>
 <div class="card">
     <div class="card-body">
@@ -28,7 +30,7 @@
 <script>
     $(document).ready(function() {
         var table = $('.Datatable').DataTable({
-            
+
             ajax: '/employee/datatable/ssd',
             columns: [{
                     data: 'plus-icon',

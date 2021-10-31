@@ -52,13 +52,22 @@
         $('.logout-btn').on('click', function(e) {
             e.preventDefault();
 
-            $.ajax({
-                url: '/logout',
-                type: 'POST',
+            swal({
+                    text: "Are you sure want to delete ?",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        $.ajax({
+                            url: '/logout',
+                            type: 'POST',
 
-            }).done(function(res) {
-                window.location.reload();
-            })
+                        }).done(function(res) {
+                            window.location.reload();
+                        })
+                    }
+                });
         })
     })
 </script>

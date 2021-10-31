@@ -12,16 +12,30 @@ class PermissionController extends Controller
 {
     public function index()
     {
+        if(!auth()->user()->can('view_permission')){
+            abort(403, 'Unauthorized action.');
+        }
         return view('permission.index');
     }
 
     public function ssd(Request $request)
     {
+        if(!auth()->user()->can('view_permission')){
+            abort(403, 'Unauthorized action.');
+        }
         $permissions = Permission::query();
         return DataTables()::of($permissions)
             ->addColumn('action', function ($each) {
-                $edit_icon = '<a href="' . route('permission.edit', $each->id) . '" class="text-warning"><i class="far fa-edit" ></i></a>';
-                $delete_icon = '<a href="#" class="text-danger delete-btn" data-id="' . $each->id . '" ><i class="fas fa-trash-alt" ></i></a>';
+                $edit_icon = '';
+                $delete_icon = '';
+
+                if (auth()->user()->can('edit_permission')) {
+                    $edit_icon = '<a href="' . route('permission.edit', $each->id) . '" class="text-warning"><i class="far fa-edit" ></i></a>';
+                }
+
+                if (auth()->user()->can('delete_permission')) {
+                    $delete_icon = '<a href="#" class="text-danger delete-btn" data-id="' . $each->id . '" ><i class="fas fa-trash-alt" ></i></a>';
+                }
 
                 return '<div class="action_icon" >' . $edit_icon . $delete_icon . '</div>';
             })
@@ -34,11 +48,17 @@ class PermissionController extends Controller
 
     public function create()
     {
+        if(!auth()->user()->can('create_permission')){
+            abort(403, 'Unauthorized action.');
+        }
         return view('permission.create');
     }
 
     public function store(StorePermissionRequest $request)
     {
+        if(!auth()->user()->can('create_permission')){
+            abort(403, 'Unauthorized action.');
+        }
         $permission = new Permission();
         $permission->name = $request->name;
         $permission->save();
@@ -48,12 +68,18 @@ class PermissionController extends Controller
 
     public function edit($id)
     {
+        if(!auth()->user()->can('edit_permission')){
+            abort(403, 'Unauthorized action.');
+        }
         $permission = Permission::findOrFail($id);
         return view('permission.edit', compact('permission'));
     }
 
     public function update($id, UpdatePermissionRequest $request)
     {
+        if(!auth()->user()->can('edit_permission')){
+            abort(403, 'Unauthorized action.');
+        }
         $permission = Permission::findOrFail($id);
         $permission->name = $request->name;
         $permission->update();
@@ -69,6 +95,9 @@ class PermissionController extends Controller
 
     public function destroy($id)
     {
+        if(!auth()->user()->can('delete_permission')){
+            abort(403, 'Unauthorized action.');
+        }
         $permission = Permission::findOrFail($id);
         $permission->delete();
 

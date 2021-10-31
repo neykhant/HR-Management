@@ -2,7 +2,9 @@
 @section('title', 'Departments')
 @section('content')
 <div>
+    @can('create_department')
     <a href="{{ route('department.create') }}" class="btn btn-theme btn-sm"><i class="fas fa-plus-circle"></i> Create Department</a>
+    @endcan
 </div>
 <div class="card">
     <div class="card-body">
@@ -23,7 +25,7 @@
 <script>
     $(document).ready(function() {
         var table = $('.Datatable').DataTable({
-            
+
             ajax: '/department/datatable/ssd',
             columns: [{
                     data: 'plus-icon',
