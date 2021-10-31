@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Spatie\Permission\Models\Role;
 use App\Department;
 use App\Http\Requests\StoreEmployeeRequest;
 use App\Http\Requests\UpdateEmployeeRequest;
@@ -35,7 +35,13 @@ class EmployeeController extends Controller
             ->addColumn('department_name', function ($each) {
                 return $each->department ? $each->department->title : '-';
             })
-
+            ->addColumn('role_name', function($each){
+                $output = '';
+                foreach($each->roles as $role){
+                    $output .='<span class="badge badge-pill badge-success m-1">'.$role->name.'</span>';
+                }
+                return $output;
+            })
             ->editColumn('is_present', function ($each) {
                 if ($each->is_present === 1) {
                     return '<span class="badge badge-pill badge-success" >Present</span>';
@@ -56,14 +62,15 @@ class EmployeeController extends Controller
             ->addColumn('plus-icon', function ($each) {
                 return null;
             })
-            ->rawColumns(['profile_img', 'is_present', 'action'])
+            ->rawColumns(['profile_img', 'role_name', 'is_present', 'action'])
             ->make(true);
     }
 
     public function create()
     {
+        $roles = Role::all();
         $departments = Department::orderBy('title')->get();
-        return view('employee.create', compact('departments'));
+        return view('employee.create', compact('departments','roles'));
     }
 
     public function store(StoreEmployeeRequest $request)
@@ -92,15 +99,19 @@ class EmployeeController extends Controller
         $employee->password = Hash::make($request->password);
         $employee->save();
 
+        $employee->syncRoles($request->roles);
+
         return redirect()->route('employee.index')->with('create', 'Employee is successfully created.');
     }
 
     public function edit($id)
     {
         $employee = User::findOrFail($id);
+        $roles = Role::all();
+        $old_roles = $employee->roles->pluck('id')->toArray();
         $departments = Department::orderBy('title')->get();
 
-        return view('employee.edit', compact('employee', 'departments'));
+        return view('employee.edit', compact('employee','roles','old_roles', 'departments'));
     }
 
     public function update($id, UpdateEmployeeRequest $request)
@@ -131,6 +142,8 @@ class EmployeeController extends Controller
         $employee->profile_img = $profile_img_name;
         $employee->password = $request->password ? Hash::make($request->password) : $employee->password;
         $employee->update();
+
+        $employee->syncRoles($request->roles);
 
         return redirect()->route('employee.index')->with('update', 'Employee is successfully updated.');
     }

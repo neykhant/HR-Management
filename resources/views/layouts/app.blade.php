@@ -30,6 +30,8 @@
 
     <!-- date range picker -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <!-- select2 -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
 </head>
 
@@ -48,9 +50,7 @@
                 </div>
                 <div class="sidebar-header">
                     <div class="user-pic">
-                        <img class="img-responsive img-rounded" 
-                        src="{{ auth()->user()->profile_img_path() }}"
-                         alt="">
+                        <img class="img-responsive img-rounded" src="{{ auth()->user()->profile_img_path() }}" alt="">
                     </div>
                     <div class="user-info">
                         <span class="user-name">
@@ -183,6 +183,9 @@
     <!-- Bootstrap core JavaScript -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
+    <!-- select2 -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
     <!-- sidebar -->
@@ -253,7 +256,7 @@
                 $(".page-wrapper").addClass("toggled");
             });
 
-            @if(request()->is('/'))
+            @if(request()-> is('/'))
             document.addEventListener('click', function(event) {
                 if (document.getElementById('show-sidebar').contains(event.target)) {
                     $(".page-wrapper").addClass("toggled");
@@ -312,11 +315,15 @@
                 },
             });
 
-            $('#back-btn').on('click', function(e){
+            $('#back-btn').on('click', function(e) {
                 e.preventDefault();
                 window.history.go(-1);
                 return false;
             })
+
+            $('.select-ninja').select2();
+
+
         });
     </script>
 

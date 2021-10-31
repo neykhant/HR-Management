@@ -12,6 +12,7 @@
                 <input type="text" name="employee_id" class="form-control" autocomplete="off">
             </div>
 
+
             <div class="md-form">
                 <label for="">Name</label>
                 <input type="text" name="name" class="form-control" autocomplete="off">
@@ -55,6 +56,15 @@
                 <select name="department_id" class="form-control">
                     @foreach($departments as $department)
                     <option value="{{$department->id}}">{{$department->title}}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="">Role (or) Designation </label>
+                <select name="roles[]" class="form-control select-ninja" multiple>
+                    @foreach($roles as $role)
+                    <option value="{{$role->name}}">{{$role->name}}</option>
                     @endforeach
                 </select>
             </div>
