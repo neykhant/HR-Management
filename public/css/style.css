@@ -643,4 +643,7 @@ mark {
     width: 100%;
 }
 
+.daterangepicker .drp-buttons .btn {
+    font-size: 12px !important;
+}
 /* heroku deploy with laravel into database mysql project */

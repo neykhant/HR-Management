@@ -33,6 +33,8 @@
     <!-- select2 -->
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
+    @yield('extra_css')
+
 </head>
 
 <body>
@@ -68,11 +70,19 @@
                 <div class="sidebar-menu">
                     <ul>
                         <li>
-                            <a href="#">
+                            <a href="/">
                                 <i class="fas fa-home"></i>
                                 <span>Home</span>
                             </a>
                         </li>
+                        @can('view_company_setting')
+                        <li>
+                            <a href="{{ route('company-setting.show', 1) }}">
+                                <i class="fas fa-building"></i>
+                                <span>Company Setting</span>
+                            </a>
+                        </li>
+                        @endcan
                         @can('view_employee')
                         <li>
                             <a href="{{route('employee.index')}}">
