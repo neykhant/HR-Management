@@ -7,17 +7,29 @@ use Illuminate\Http\Request;
 
 class CompanySettingController extends Controller
 {
-    public function show($id){
+    public function show($id)
+    {
+        if (!auth()->user()->can('view_company_setting')) {
+            abort(403, 'Unauthorized action.');
+        }
         $setting = CompanySetting::findOrFail($id);
         return view('company_setting.show', compact('setting'));
     }
 
-    public function edit($id){
+    public function edit($id)
+    {
+        if (!auth()->user()->can('edit_company_setting')) {
+            abort(403, 'Unauthorized action.');
+        }
         $setting = CompanySetting::findOrFail($id);
         return view('company_setting.edit', compact('setting'));
     }
 
-    public function update($id, Request $request){
+    public function update($id, Request $request)
+    {
+        if (!auth()->user()->can('edit_company_setting')) {
+            abort(403, 'Unauthorized action.');
+        }
         $setting = CompanySetting::findOrFail($id);
         $setting->company_name = $request->company_name;
         $setting->company_phone = $request->company_phone;

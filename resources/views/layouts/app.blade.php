@@ -227,7 +227,8 @@
 
     <!-- sweet alert -->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
+    <!-- larapass js -->
+    <script src="{{ asset('vendor/larapass/js/larapass.js') }}"></script>
 
     <script>
         $(function($) {
