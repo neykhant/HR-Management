@@ -101,6 +101,11 @@
             </div>
 
             <div class="md-form">
+                <label for="">Pin Code</label>
+                <input type="number" name="pin_code" class="form-control" value="{{ $employee->pin_code }}">
+            </div>
+
+            <div class="md-form">
                 <label for="">Password</label>
                 <input type="password" name="password" class="form-control">
             </div>

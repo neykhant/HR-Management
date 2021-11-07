@@ -340,8 +340,6 @@
             })
 
             $('.select-ninja').select2();
-
-
         });
     </script>
 

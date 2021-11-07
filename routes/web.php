@@ -28,6 +28,9 @@ Route::post('webauthn/login/options', [WebAuthnLoginController::class, 'options'
 Route::post('webauthn/login', [WebAuthnLoginController::class, 'login'])
      ->name('webauthn.login');
 
+     Route::get('checkin-checkout', 'CheckinCheckoutController@checkInCheckOut');
+     Route::post('checkin-checkout/store', 'CheckinCheckoutController@checkInCheckOutStore');
+
      // for all employee //
 Route::middleware('auth')->group(function(){
     Route::get('/', 'PageController@home')->name('home');

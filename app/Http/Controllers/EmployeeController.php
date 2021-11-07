@@ -120,6 +120,7 @@ class EmployeeController extends Controller
         $employee->date_of_join = $request->date_of_join;
         $employee->is_present = $request->is_present;
         $employee->profile_img = $profile_img_name;
+        $employee->pin_code = $request->pin_code;
         $employee->password = Hash::make($request->password);
         $employee->save();
 
@@ -170,6 +171,7 @@ class EmployeeController extends Controller
         $employee->date_of_join = $request->date_of_join;
         $employee->is_present = $request->is_present;
         $employee->profile_img = $profile_img_name;
+        $employee->pin_code = $request->pin_code;
         $employee->password = $request->password ? Hash::make($request->password) : $employee->password;
         $employee->update();
 

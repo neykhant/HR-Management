@@ -41,6 +41,18 @@
 
 <div class="card mb-3">
     <div class="card-body">
+        <h5>Biometric Authentication</h5>
+        <form id="biometric-register-form">
+            <button type="submit" class="btn biometric-register-btn">
+                <i class="fas fa-fingerprint"></i>
+                <i class="fas fa-plus-circle"></i>
+            </button>
+        </form>
+    </div>
+</div>
+
+<div class="card mb-3">
+    <div class="card-body">
         <a href="#" class="logout-btn btn btn-theme btn-block"><i class="fas fa-sign-out-alt"></i> Logout</a>
     </div>
 </div>
@@ -49,11 +61,33 @@
 @section('script')
 <script>
     $(document).ready(function() {
+
+        const register = (event) => {
+            event.preventDefault()
+            new Larapass({
+                    register: 'webauthn/register',
+                    registerOptions: 'webauthn/register/options'
+                }).register()
+                .then(function(res) {
+                    Swal.fire({
+                        title: 'Successfully Create.',
+                        text: "The biometric data is created successfully",
+                        icon: 'success',
+                        confirmButtonText: 'Continue'
+                    })
+                })
+                .catch(function(res) {
+                    console.log(res);
+                });
+        }
+
+        document.getElementById('biometric-register-form').addEventListener('submit', register)
+
         $('.logout-btn').on('click', function(e) {
             e.preventDefault();
 
             swal({
-                    text: "Are you sure want to delete ?",
+                    text: "Are you sure want to Logout ?",
                     buttons: true,
                     dangerMode: true,
                 })
