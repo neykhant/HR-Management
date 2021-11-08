@@ -50,6 +50,10 @@ Route::middleware('auth')->group(function(){
     Route::get('permission/datatable/ssd', 'PermissionController@ssd');
 
     Route::resource('company-setting', 'CompanySettingController')->only(['edit', 'update', 'show']);
+
+    Route::resource('attendance', 'AttendanceController');
+    Route::get('attendance/datatable/ssd', 'AttendanceController@ssd');
+
 });
 
 

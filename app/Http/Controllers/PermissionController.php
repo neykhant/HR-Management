@@ -25,6 +25,13 @@ class PermissionController extends Controller
         }
         $permissions = Permission::query();
         return DataTables()::of($permissions)
+            ->editColumn('created_at', function($each){
+                return $each->created_at->toDateTimeString();
+            })
+            ->editColumn('updated_at', function($each){
+                return $each->updated_at->toDateTimeString();
+            })
+            
             ->addColumn('action', function ($each) {
                 $edit_icon = '';
                 $delete_icon = '';

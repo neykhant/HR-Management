@@ -444,13 +444,13 @@ body {
 /*-----------------------------chiller-theme-------------------------------------------------*/
 
 .chiller-theme .sidebar-wrapper {
-    background: #2D3747;
+    background: #2d3747;
 }
 
 .chiller-theme .sidebar-wrapper .sidebar-header,
 .chiller-theme .sidebar-wrapper .sidebar-search,
 .chiller-theme .sidebar-wrapper .sidebar-menu {
-    border-top: 1px solid #2D3747;
+    border-top: 1px solid #2d3747;
 }
 
 .chiller-theme .sidebar-wrapper .sidebar-search input.search-menu,
@@ -639,7 +639,7 @@ mark {
     padding: 3px;
 }
 
-.abc{
+.abc {
     width: 100%;
 }
 
@@ -650,27 +650,72 @@ mark {
 
 /* biometrice authentication */
 
-#biometric-register-form .biometric-register-btn{
+#biometric-register-form .biometric-register-btn {
     padding: 15px;
     box-shadow: none !important;
     border: 1px solid #ddd;
     border-radius: 10px;
 }
 
-#biometric-register-form i.fa-fingerprint{
+#biometric-register-form i.fa-fingerprint {
     font-size: 26px;
 }
 
-#biometric-register-form i.fa-plus-circle{
+#biometric-register-form i.fa-plus-circle {
     position: relative;
     padding: 5px;
     right: 5px;
 }
-
-
-.qr-code img{
+/*------------------------------------- QR code --------------------------- */
+.qr-code img {
     /* text-align: center !important; */
     align-items: center !important;
 }
 
+/* --------------select2 ---------------------- */
+.select2-container--bootstrap4
+    .select2-selection--multiple
+    .select2-selection__choice__remove {
+    float: left;
+    padding-right: 3 px;
+    padding-left: 3 px;
+    margin-right: 1 px;
+    margin-left: 3 px;
+    font-weight: 700;
+    color: #bdc6d0;
+    border: 1px solid #ddd !important;
+    /* color: #ddd !important; */
+    padding: 0 5px !important;
+    border-radius: 4px !important;
+}
+/* .select2-container--bootstrap4
+    .select2-selection--multiple
+    .select2-selection__choice__remove {
+    float: left;
+    padding-right: 3 px;
+    padding-left: 3 px;
+    margin-right: 1 px;
+    margin-left: 3 px;
+    font-weight: 700;
+    color: #bdc6d0;
+    border: 1 px solid #ddd !important;
+    color: #000 !important;
+    padding: 0 5 px !important;
+    border-radius: 2 px !important;
+} */
 
+.select2-container--bootstrap4
+    .select2-selection--multiple
+    .select2-selection__choice__remove {
+    float: left;
+    padding-right: 3 px;
+    padding-left: 3 px;
+    margin-right: 1 px;
+    margin-left: 3 px;
+    font-weight: 700;
+    color: #bdc6d0;
+    border: 1 px solid #ddd !important;
+    color: #000 !important;
+    padding: 0 5 px !important;
+    border-radius: 2 px !important;
+}

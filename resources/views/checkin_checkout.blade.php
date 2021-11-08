@@ -75,6 +75,9 @@
                 //   $(errorElement).html("I'm sorry, but the code not correct");
             }
         });
+
+        $('.pincode-input-text').first().select().focus();
+
     })
 </script>
 @endsection
