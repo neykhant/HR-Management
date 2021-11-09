@@ -353,6 +353,7 @@
             })
 
             $('.select-ninja').select2({
+                placeholder: '-- Please Choose --',
                 theme: 'bootstrap4',
             });
         });

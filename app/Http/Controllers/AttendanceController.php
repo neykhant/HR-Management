@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\CheckinCheckout;
+use App\Http\Requests\StoreAttendanceRequest;
 use App\Http\Requests\StoreDepartmentRequest;
 use App\Http\Requests\StoreEmployeeRequest;
 use App\Http\Requests\UpdateDepartmentRequest;
@@ -34,7 +35,7 @@ class AttendanceController extends Controller
         // $employees = User::query();
         $attendances = CheckinCheckout::with('employee');
         return DataTables()::of($attendances)
-            ->editColumn('employee_name', function($each){
+            ->editColumn('employee_name', function ($each) {
                 return $each->employee ? $each->employee->name : '-';
             })
 
@@ -67,16 +68,24 @@ class AttendanceController extends Controller
         return view('attendance.create', compact('employees'));
     }
 
-    public function store(StoreDepartmentRequest $request)
+    public function store(StoreAttendanceRequest $request)
     {
         if (!auth()->user()->can('create_attendance')) {
             abort(403, 'Unauthorized action.');
         }
+
+        if (CheckinCheckout::where('user_id', $request->user_id)->where('date', $request->date)->exists()) {
+            return back()->withErrors(['fail' => 'Already defined.'])->withInput();
+        }
+
         $attendance = new CheckinCheckout();
-        $attendance->title = $request->title;
+        $attendance->user_id = $request->user_id;
+        $attendance->date = $request->date;
+        $attendance->checkin_time = $request->date . ' ' . $request->checkin_time;
+        $attendance->checkout_time = $request->date . ' ' . $request->checkout_time;
         $attendance->save();
 
-        return redirect()->route('department.index')->with('create', 'Department is successfully created.');
+        return redirect()->route('attendance.index')->with('create', 'Attendance is successfully created.');
     }
 
     public function edit($id)
@@ -108,7 +117,7 @@ class AttendanceController extends Controller
 
     public function destroy($id)
     {
-        if(!auth()->user()->can('delete_attendance')){
+        if (!auth()->user()->can('delete_attendance')) {
             abort(403, 'Unauthorized action.');
         }
         $attendance = CheckinCheckout::findOrFail($id);
