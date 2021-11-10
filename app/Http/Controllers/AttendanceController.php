@@ -4,10 +4,7 @@ namespace App\Http\Controllers;
 
 use App\CheckinCheckout;
 use App\Http\Requests\StoreAttendanceRequest;
-use App\Http\Requests\StoreDepartmentRequest;
-use App\Http\Requests\StoreEmployeeRequest;
-use App\Http\Requests\UpdateDepartmentRequest;
-use App\Http\Requests\UpdateEmployeeRequest;
+use App\Http\Requests\UpdateAttendanceRequest;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -93,27 +90,33 @@ class AttendanceController extends Controller
         if (!auth()->user()->can('edit_attendance')) {
             abort(403, 'Unauthorized action.');
         }
+
+        $employees = User::orderBy('employee_id')->get();
         $attendance = CheckinCheckout::findOrFail($id);
-        return view('attendance.edit', compact('attendance'));
+        return view('attendance.edit', compact('attendance','employees'));
     }
 
-    public function update($id, UpdateDepartmentRequest $request)
+    public function update($id, UpdateAttendanceRequest $request)
     {
         if (!auth()->user()->can('edit_attendance')) {
             abort(403, 'Unauthorized action.');
         }
+
         $attendance = CheckinCheckout::findOrFail($id);
-        $attendance->title = $request->title;
+
+        if (CheckinCheckout::where('user_id', $request->user_id)->where('date', $request->date)->where('id','!=', $attendance->id )->exists()) {
+            return back()->withErrors(['fail' => 'Already defined.'])->withInput();
+        }
+
+        // $attendance = new CheckinCheckout();
+        $attendance->user_id = $request->user_id;
+        $attendance->date = $request->date;
+        $attendance->checkin_time = $request->date .' '. $request->checkin_time;
+        $attendance->checkout_time = $request->date .' '. $request->checkout_time;
         $attendance->update();
 
         return redirect()->route('attendance.index')->with('update', 'Attendance is successfully updated.');
     }
-
-    // public function show($id)
-    // {
-    //     $department = Department::findOrFail($id);
-    //     return view('department.show', compact('department'));
-    // }
 
     public function destroy($id)
     {

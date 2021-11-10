@@ -83,7 +83,7 @@
                     if (willDelete) {
                         $.ajax({
                                 method: "DELETE",
-                                url: `/department/${id}`,
+                                url: `/attendance/${id}`,
                             })
                             .done(function(msg) {
                                 table.ajax.reload();

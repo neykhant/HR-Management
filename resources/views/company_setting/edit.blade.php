@@ -77,7 +77,7 @@
                 "format": "HH:mm:ss",
             }
         }).on('show.daterangepicker', function(ev, picker) {
-            $(".calendar-table").hide();
+            picker.container.find(".calendar-table").hide();
         });
     })
 </script>
