@@ -54,6 +54,7 @@ Route::middleware('auth')->group(function(){
     Route::resource('attendance', 'AttendanceController');
     Route::get('attendance/datatable/ssd', 'AttendanceController@ssd');
 
+    Route::get('/attendance-scan', 'AttendanceScanController@scan')->name('attendance-scan');
 });
 
 

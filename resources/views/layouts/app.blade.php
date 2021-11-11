@@ -183,13 +183,13 @@
                             <i class="fas fa-home"></i>
                             <p class="mb-0">Home</p>
                         </a>
-                        <a href="">
-                            <i class="fas fa-home"></i>
-                            <p class="mb-0">Home</p>
+                        <a href="{{ route('attendance-scan') }}">
+                            <i class="fas fa-user-check"></i>
+                            <p class="mb-0">Attendance</p>
                         </a>
                         <a href="">
-                            <i class="fas fa-home"></i>
-                            <p class="mb-0">Home</p>
+                            <i class="fas fa-briefcase"></i>
+                            <p class="mb-0">Project</p>
                         </a>
                         <a href="{{ route('profile.profile') }}">
                             <i class="fas fa-user"></i>

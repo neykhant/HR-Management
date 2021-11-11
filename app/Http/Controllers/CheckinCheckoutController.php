@@ -3,14 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\CheckinCheckout;
+use App\CompanySetting;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class CheckinCheckoutController extends Controller
 {
     public function checkInCheckOut()
     {
-        return view('checkin_checkout');
+        $company_setting = CompanySetting::findOrFail(1);
+        $hash_value = Hash::make($company_setting->company_name);
+        return view('checkin_checkout', compact('hash_value'));
     }
 
     public function checkInCheckOutStore(Request $request)
