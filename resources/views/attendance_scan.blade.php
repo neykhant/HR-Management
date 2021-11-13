@@ -37,15 +37,76 @@
 @section('script')
 <script src="{{ asset('js/qr-scanner.umd.min.js') }}"></script>
 <!-- <script type="text/javascript" src="{{ asset('js/instascan.min.js') }}"></script> -->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
     $(document).ready(function() {
+
         var videoElem = document.getElementById('video');
         const qrScanner = new QrScanner(videoElem, function(result) {
-            console.log(result);
-            if(result){
+            // console.log(result);
+            if (result) {
                 $('#scanModal').modal('hide');
                 qrScanner.stop();
+
+                $.ajax({
+                    url: '/attendance-scan/store',
+                    type: 'POST',
+                    data: {
+                        "hash_value": result
+                    },
+                    success: function(res) {
+                        // console.log(res);
+                        if (res.status = 'success') {
+
+                            const Toast = Swal.mixin({
+                                toast: true,
+                                position: 'top-end',
+                                showConfirmButton: false,
+                                timer: 3000,
+                                timerProgressBar: true,
+                                didOpen: (toast) => {
+                                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                }
+                            })
+                            Toast.fire({
+                                icon: 'success',
+                                title: res.message,
+                            })
+
+                            // Toast.fire({
+                            //     icon: 'success',
+                            //     title: 'Signed in successfully'
+                            // })
+                        }
+                        if (res.status == "fail") {
+                            
+                            const Toast = Swal.mixin({
+                                toast: true,
+                                position: 'top-end',
+                                showConfirmButton: false,
+                                timer: 3000,
+                                timerProgressBar: true,
+                                didOpen: (toast) => {
+                                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                }
+                            })
+
+                            // Toast.fire({
+                            //     icon: 'success',
+                            //     title: 'Signed in successfully'
+                            // })
+                            Toast.fire({
+                                icon: 'error',
+                                title: res.message,
+                            })
+                        }
+
+                    }
+
+                })
             }
         });
 

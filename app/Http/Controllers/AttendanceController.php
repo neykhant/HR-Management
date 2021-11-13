@@ -32,6 +32,11 @@ class AttendanceController extends Controller
         // $employees = User::query();
         $attendances = CheckinCheckout::with('employee');
         return DataTables()::of($attendances)
+            ->filterColumn('employee_name', function ($query, $keyword) {
+                $query->whereHas('employee', function ($q1) use ($keyword) {
+                    $q1->where('name', 'like', '%' . $keyword . '%');
+                });
+            })
             ->editColumn('employee_name', function ($each) {
                 return $each->employee ? $each->employee->name : '-';
             })
@@ -93,7 +98,7 @@ class AttendanceController extends Controller
 
         $employees = User::orderBy('employee_id')->get();
         $attendance = CheckinCheckout::findOrFail($id);
-        return view('attendance.edit', compact('attendance','employees'));
+        return view('attendance.edit', compact('attendance', 'employees'));
     }
 
     public function update($id, UpdateAttendanceRequest $request)
@@ -104,15 +109,15 @@ class AttendanceController extends Controller
 
         $attendance = CheckinCheckout::findOrFail($id);
 
-        if (CheckinCheckout::where('user_id', $request->user_id)->where('date', $request->date)->where('id','!=', $attendance->id )->exists()) {
+        if (CheckinCheckout::where('user_id', $request->user_id)->where('date', $request->date)->where('id', '!=', $attendance->id)->exists()) {
             return back()->withErrors(['fail' => 'Already defined.'])->withInput();
         }
 
         // $attendance = new CheckinCheckout();
         $attendance->user_id = $request->user_id;
         $attendance->date = $request->date;
-        $attendance->checkin_time = $request->date .' '. $request->checkin_time;
-        $attendance->checkout_time = $request->date .' '. $request->checkout_time;
+        $attendance->checkin_time = $request->date . ' ' . $request->checkin_time;
+        $attendance->checkout_time = $request->date . ' ' . $request->checkout_time;
         $attendance->update();
 
         return redirect()->route('attendance.index')->with('update', 'Attendance is successfully updated.');

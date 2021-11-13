@@ -13,16 +13,14 @@ class CheckinCheckoutController extends Controller
     public function checkInCheckOut()
     {
         $company_setting = CompanySetting::findOrFail(1);
-        $hash_value = Hash::make($company_setting->company_name);
+        $hash_value = Hash::make(date('Y-m-d'));
         return view('checkin_checkout', compact('hash_value'));
     }
 
     public function checkInCheckOutStore(Request $request)
     {
         // return $request->pin_code;
-
         $user = User::where('pin_code', $request->pin_code)->first();
-
         if (!$user) {
             return [
                 'status' => 'fail',

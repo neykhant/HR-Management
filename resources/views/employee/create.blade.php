@@ -140,6 +140,7 @@
             }
         });
 
+
         $('#profile_img').on('change', function() {
             var file_length = document.getElementById('profile_img').files.length;
             $('.preview_img').html('');

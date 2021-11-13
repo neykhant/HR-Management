@@ -49,7 +49,6 @@
                     <button type="submit" class="btn btn-theme btn-sm btn-block">Confirm</button>
                 </div>
             </div>
-
         </form>
     </div>
 </div>

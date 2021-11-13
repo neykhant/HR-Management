@@ -134,6 +134,7 @@ class EmployeeController extends Controller
         if(!auth()->user()->can('edit_employee')){
             abort(403, 'Unauthorized action.');
         }
+        
         $employee = User::findOrFail($id);
         $roles = Role::all();
         $old_roles = $employee->roles->pluck('id')->toArray();

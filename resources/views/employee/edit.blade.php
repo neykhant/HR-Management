@@ -97,7 +97,6 @@
                     <img src="{{$employee->profile_img_path()}}" alt="">
                     @endif
                 </div>
-
             </div>
 
             <div class="md-form">
