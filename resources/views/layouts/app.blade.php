@@ -124,7 +124,16 @@
                         <li>
                             <a href="{{route('attendance.index')}}">
                                 <i class="fas fa-calendar-check"></i>
-                                <span>Attendance</span>
+                                <span>Attendance(Employee)</span>
+                            </a>
+                        </li>
+                        @endcan
+
+                        @can('view_attendance_overview')
+                        <li>
+                            <a href="{{route('attendance.overview')}}">
+                                <i class="fas fa-calendar-check"></i>
+                                <span>Attendance(Overview)</span>
                             </a>
                         </li>
                         @endcan
@@ -153,7 +162,7 @@
         <!-- sidebar-wrapper  -->
         <div class="app-bar">
             <div class="d-flex justify-content-center">
-                <div class="col-md-8">
+                <div class="col-md-10">
                     <div class="d-flex justify-content-between">
                         @if(request()->is('/'))
                         <a href="#" id="show-sidebar"><i class="fas fa-bars"></i></a>
@@ -169,7 +178,7 @@
 
         <div class="py-4 content">
             <div class="d-flex justify-content-center">
-                <div class="col-md-8">
+                <div class="col-md-10">
                     @yield('content')
                 </div>
             </div>
@@ -177,7 +186,7 @@
 
         <div class="bottom-bar">
             <div class="d-flex justify-content-center">
-                <div class="col-md-8">
+                <div class="col-md-10">
                     <div class="d-flex justify-content-between">
                         <a href="{{ route('home') }}">
                             <i class="fas fa-home"></i>

@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\CheckinCheckout;
+use App\CompanySetting;
 use App\Http\Requests\StoreAttendanceRequest;
 use App\Http\Requests\UpdateAttendanceRequest;
 use App\User;
 use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -132,5 +134,18 @@ class AttendanceController extends Controller
         $attendance->delete();
 
         return 'successd';
+    }
+
+    public function overview(){
+        if (!auth()->user()->can('view_attendance_overview')) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $company_setting = CompanySetting::findOrFail(1);
+        $periods= new CarbonPeriod('2021-9-1', '2021-9-30');
+        $employees = User::orderBy('employee_id')->get();
+        $attendances = CheckinCheckout::whereMonth('date','09')->whereYear('date', '2021')->get();
+        // return count($attendances);
+        return view('attendance.overview', compact('company_setting','periods', 'employees', 'attendances'));
     }
 }
