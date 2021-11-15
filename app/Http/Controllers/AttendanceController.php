@@ -136,16 +136,34 @@ class AttendanceController extends Controller
         return 'successd';
     }
 
-    public function overview(){
+    public function overview(Request $request){
         if (!auth()->user()->can('view_attendance_overview')) {
             abort(403, 'Unauthorized action.');
         }
 
-        $company_setting = CompanySetting::findOrFail(1);
-        $periods= new CarbonPeriod('2021-9-1', '2021-9-30');
-        $employees = User::orderBy('employee_id')->get();
-        $attendances = CheckinCheckout::whereMonth('date','09')->whereYear('date', '2021')->get();
+        // $company_setting = CompanySetting::findOrFail(1);
+        // $periods= new CarbonPeriod('2021-9-1', '2021-9-30');
+        // $employees = User::orderBy('employee_id')->get();
+        // $attendances = CheckinCheckout::whereMonth('date','09')->whereYear('date', '2021')->get();
         // return count($attendances);
-        return view('attendance.overview', compact('company_setting','periods', 'employees', 'attendances'));
+        return view('attendance.overview');
+    }
+
+    public function overviewTable(Request $request){
+        if (!auth()->user()->can('view_attendance_overview')) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $month = $request->month;
+        $year = $request->year;
+        $startOfMonth = $year .'-' . $month . '-01'; //  2021-02-01
+        $endOfMonth = Carbon::parse($startOfMonth)->endOfMonth()->format('Y-m-d'); //  2021-02-28
+
+        $company_setting = CompanySetting::findOrFail(1);
+        $periods= new CarbonPeriod($startOfMonth, $endOfMonth);
+        $employees = User::orderBy('employee_id')->where('name', 'like', '%'. $request->employee_name .'%')->get();
+        $attendances = CheckinCheckout::whereMonth('date',$month)->whereYear('date', $year)->get();
+        // return count($attendances);
+        return view('components.attendance_overview_table', compact('company_setting','periods', 'employees', 'attendances'))->render();
     }
 }
