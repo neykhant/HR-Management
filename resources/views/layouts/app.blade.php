@@ -86,6 +86,7 @@
                             </a>
                         </li>
                         @endcan
+
                         @can('view_employee')
                         <li>
                             <a href="{{route('employee.index')}}">
@@ -94,6 +95,16 @@
                             </a>
                         </li>
                         @endcan
+
+                        @can('view_salary')
+                        <li>
+                            <a href="{{route('salary.index')}}">
+                                <i class="fas fa-money-bill"></i>
+                                <span>Salary</span>
+                            </a>
+                        </li>
+                        @endcan
+
                         @can('view_department')
                         <li>
                             <a href="{{route('department.index')}}">

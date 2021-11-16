@@ -20,6 +20,13 @@ class CheckinCheckoutController extends Controller
     public function checkInCheckOutStore(Request $request)
     {
         // return $request->pin_code;
+        if(now()->format('D') == 'Sat' || now()->format('D') == 'Sun'){
+            return [
+                'status' => 'fail',
+                'message' => 'Today is Off Day.',
+            ];
+        }
+        
         $user = User::where('pin_code', $request->pin_code)->first();
         if (!$user) {
             return [
