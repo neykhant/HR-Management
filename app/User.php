@@ -52,10 +52,7 @@ class User extends Authenticatable implements WebAuthnAuthenticatable
         return null;
     }
 
-    // public function profile_img_path(){
-    //     if($this->profile_img){
-    //         return asset('storage/employee/' . $this->profile_img);
-    //     }
-    //     return null;
-    // }
+    public function salaries(){
+        return $this->hasMany(Salary::class, 'user_id', 'id');
+    }
 }

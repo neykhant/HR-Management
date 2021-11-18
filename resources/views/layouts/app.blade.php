@@ -131,6 +131,15 @@
                         </li>
                         @endcan
 
+                        @can('view_project')
+                        <li>
+                            <a href="{{route('project.index')}}">
+                                <i class="fas fa-toolbox"></i>
+                                <span>Project</span>
+                            </a>
+                        </li>
+                        @endcan
+
                         @can('view_attendance')
                         <li>
                             <a href="{{route('attendance.index')}}">
@@ -145,6 +154,15 @@
                             <a href="{{route('attendance.overview')}}">
                                 <i class="fas fa-calendar-check"></i>
                                 <span>Attendance(Overview)</span>
+                            </a>
+                        </li>
+                        @endcan
+
+                        @can('view_payroll')
+                        <li>
+                            <a href="{{route('payroll.overview')}}">
+                                <i class="fas fa-money-check"></i>
+                                <span>Payroll</span>
                             </a>
                         </li>
                         @endcan

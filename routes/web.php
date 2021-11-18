@@ -65,6 +65,15 @@ Route::middleware('auth')->group(function(){
     Route::resource('salary', 'SalaryController');
     Route::get('salary/datatable/ssd', 'SalaryController@ssd');
 
+    Route::get('payroll', 'PayrollController@payroll')->name('payroll.overview');
+    Route::get('payroll-table', 'PayrollController@payrollTable');
+
+    Route::get('my-payroll', 'MyPayrollController@ssd');
+    Route::get('my-payroll-table', 'MyPayrollController@payrollTable');
+
+    Route::resource('project', 'ProjectController');
+    Route::get('project/datatable/ssd', 'ProjectController@ssd');
+
 });
 
 

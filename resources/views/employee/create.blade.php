@@ -83,7 +83,7 @@
             </div>
 
             <div class="form-group">
-                <label for="profile_img">Name</label>
+                <label for="profile_img">Image</label>
                 <input type="file" name="profile_img" class="form-control py-1" id="profile_img">
                 <div class="preview_img my-2">
 
