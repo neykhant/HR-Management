@@ -99,6 +99,7 @@ class EmployeeController extends Controller
         if(!auth()->user()->can('create_employee')){
             abort(403, 'Unauthorized action.');
         }
+        
         $profile_img_name = null;
         if ($request->hasFile('profile_img')) {
             $profile_img_file = $request->file('profile_img');

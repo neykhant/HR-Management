@@ -639,6 +639,14 @@ mark {
     padding: 3px;
 }
 
+.profile-thumnail2 {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    padding: 3px;
+}
+
 .abc {
     width: 100%;
 }

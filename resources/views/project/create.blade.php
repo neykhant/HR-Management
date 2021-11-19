@@ -4,7 +4,7 @@
 
 <div class="card">
     <div class="card-body">
-        <form action="{{ route('project.store') }}" method="POST" id="create-form">
+        <form action="{{ route('project.store') }}" method="POST" id="create-form" enctype="multipart/form-data">
             @csrf
 
             <div class="md-form">
@@ -19,14 +19,14 @@
 
             <div class="form-group">
                 <label for="images">Images (Only PNG, JPG, JPEG)</label>
-                <input type="file" name="images[]" class="form-control py-1" id="images" multiple>
+                <input type="file" name="images[]" class="form-control py-1" id="images" multiple accept="image/.png, .jpg, .jpeg">
                 <div class="preview_img my-2"> </div>
             </div>
 
             <div class="form-group">
                 <label for="files">File (Only PDF)</label>
-                <input type="file" name="files[]" class="form-control py-1" id="files" multiple>
-                
+                <input type="file" name="files[]" class="form-control py-1" id="files" multiple accept="application/pdf">
+
             </div>
 
             <div class="md-form">
@@ -37,6 +37,26 @@
             <div class="md-form">
                 <label for="">Deadline</label>
                 <input type="text" name="deadline" class="form-control datepicker">
+            </div>
+
+            <div class="form-group">
+                <label for="">Leader</label>
+                <select name="leaders[]" id="" class="form-control select-ninja" multiple>
+                    <option value="">-- Please Choose --</option>
+                    @foreach($employees as $employee)
+                    <option value="{{ $employee->id }}">{{$employee->employee_id }} ({{$employee->name}}) </option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="">Member</label>
+                <select name="members[]" id="" class="form-control select-ninja" multiple>
+                    <option value="">-- Please Choose --</option>
+                    @foreach($employees as $employee)
+                    <option value="{{ $employee->id }}">{{$employee->employee_id }} ({{$employee->name}}) </option>
+                    @endforeach
+                </select>
             </div>
 
             <div class="md-form">
@@ -51,7 +71,7 @@
 
             <div class="md-form">
                 <label for="">Status</label>
-                <select name="priority" class="form-control select-ninja">
+                <select name="status" class="form-control select-ninja">
                     <option value="">-- Please Choose --</option>
                     <option value="pending">Pending</option>
                     <option value="in_progress">In Progress</option>

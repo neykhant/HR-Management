@@ -11,8 +11,14 @@
         <table class="table table-bordered Datatable" style="width: 100%;">
             <thead>
                 <th class="text-center no-sort no-search"></th>
-                <!-- <th class="text-center no-sort"></th> -->
                 <th class="text-center">Title</th>
+                <th class="text-center">Description</th>
+                <th class="text-center">Leaders</th>
+                <th class="text-center">Members</th>
+                <th class="text-center">Start Date</th>
+                <th class="text-center">Deadline</th>
+                <th class="text-center">Priority</th>
+                <th class="text-center">Status</th>
                 <th class="text-center no-sort">Action</th>
                 <th class="text-center hidden">Update at</th>
             </thead>
@@ -35,6 +41,41 @@
                 {
                     data: 'title',
                     name: 'title',
+                    class: "text-center"
+                },
+                {
+                    data: 'description',
+                    name: 'description',
+                    class: "text-center"
+                },
+                {
+                    data: 'leaders',
+                    name: 'leaders',
+                    class: "text-center"
+                },
+                {
+                    data: 'members',
+                    name: 'members',
+                    class: "text-center"
+                },
+                {
+                    data: 'start_date',
+                    name: 'start_date',
+                    class: "text-center"
+                },
+                {
+                    data: 'deadline',
+                    name: 'deadline',
+                    class: "text-center"
+                },
+                {
+                    data: 'priority',
+                    name: 'priority',
+                    class: "text-center"
+                },
+                {
+                    data: 'status',
+                    name: 'status',
                     class: "text-center"
                 },
                 {

@@ -5,14 +5,17 @@ namespace App\Http\Controllers;
 use App\Department;
 use App\Http\Requests\StoreDepartmentRequest;
 use App\Http\Requests\StoreEmployeeRequest;
-use App\Http\Requests\UpdateDepartmentRequest;
-use App\Http\Requests\UpdateEmployeeRequest;
+use App\Http\Requests\StoreProjectRequest;
 use App\Project;
+use App\ProjectLeader;
+use App\ProjectMember;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+
 use Yajra\DataTables\DataTables;
 
 class ProjectController extends Controller
@@ -32,8 +35,44 @@ class ProjectController extends Controller
             abort(403, 'Unauthorized action.');
         }
 
-        $projects = Project::query();
+        $projects = Project::with('leaders');
         return DataTables()::of($projects)
+            ->editColumn('description', function($each){
+                return Str::limit($each->description, 100);
+            })
+
+            ->addColumn('leaders', function($each){
+                $output = '<div style="width: 150px; " >';
+                foreach($each->leaders as $leader){
+                    $output .= '<img src="'.$leader->profile_img_path().'" alt=""  class="profile-thumnail2" /> ';
+                }
+                return $output . '</div>';
+            })
+
+            ->addColumn('members', function($each){
+                return '-';
+            })
+
+            ->editColumn('priority', function($each){
+                if($each->priority == 'high'){
+                    return '<span class="badge badge-pill badge-danger" >High</span>';
+                }else if($each->priority == 'middle'){
+                    return '<span class="badge badge-pill badge-info" >Middle</span>';
+                }else if($each->priority == 'low'){
+                    return '<span class="badge badge-pill badge-dark" >Low</span>';
+                }
+            })
+
+            ->editColumn('status', function($each){
+                if($each->status == 'pending'){
+                    return '<span class="badge badge-pill badge-warning" >Pending</span>';
+                }else if($each->status == 'in_progress'){
+                    return '<span class="badge badge-pill badge-info" >Progress</span>';
+                }else if($each->status == 'complete'){
+                    return '<span class="badge badge-pill badge-success" >Complete</span>';
+                }
+            })
+
             ->addColumn('action', function ($each) {
                 $edit_icon = '';
                 $delete_icon = '';
@@ -50,7 +89,8 @@ class ProjectController extends Controller
             ->addColumn('plus-icon', function ($each) {
                 return null;
             })
-            ->rawColumns(['action'])
+
+            ->rawColumns(['priority','status', 'leaders', 'action'])
             ->make(true);
     }
 
@@ -59,7 +99,9 @@ class ProjectController extends Controller
         if (!auth()->user()->can('create_project')) {
             abort(403, 'Unauthorized action.');
         }
-        return view('project.create');
+
+        $employees = User::orderBy('name')->get();
+        return view('project.create', compact('employees'));
     }
 
     public function store(StoreProjectRequest $request)
@@ -67,9 +109,68 @@ class ProjectController extends Controller
         if (!auth()->user()->can('create_project')) {
             abort(403, 'Unauthorized action.');
         }
+        // return $request->all();
+
+        $image_names = null;
+        if ($request->hasFile('images')) {
+            $image_names = [];
+            $images_file = $request->file('images');
+
+            foreach ($images_file as $image_file) {
+                $image_name = uniqid() . '_' . time() . '.' . $image_file->getClientOriginalExtension();
+
+                // return $image_name;
+                Storage::disk('public')->put('project/' . $image_name, file_get_contents($image_file));
+                // $image_names[] = $image_name;
+                array_push($image_names, $image_name);
+            }
+            $imageNameToStore = serialize($image_names);
+
+        }
+
+        $file_names = null;
+        if ($request->hasFile('files')) {
+            $file_names = [];
+            $files = $request->file('files');
+
+            foreach ($files as $file) {
+                $file_name = uniqid() . '_' . time() . '.' . $file->getClientOriginalExtension();
+                Storage::disk('public')->put('project/' . $file_name, file_get_contents($file));
+                // $file_names[] = $file_name;
+                array_push($file_names, $file_name);
+            }
+            $fileNameToStore = serialize($file_names);
+        }
+
+        // return $file_names;
+
+        // return $request->all();
+
         $project = new Project();
         $project->title = $request->title;
+        $project->description = $request->description;
+        $project->images = $imageNameToStore;
+        $project->file = $fileNameToStore;
+        $project->start_date = $request->start_date;
+        $project->deadline = $request->deadline;
+        $project->priority = $request->priority;
+        $project->status = $request->status;
         $project->save();
+
+        foreach( ($request->leaders ?? []) as $leader ){
+            $project_leader = new ProjectLeader();
+            $project_leader->project_id = $project->id;
+            $project_leader->user_id = $leader;
+            $project_leader->save();
+
+        }
+
+        foreach( ($request->members ?? []) as $member ){
+            $project_member = new ProjectMember();
+            $project_member->project_id = $project->id;
+            $project_member->user_id = $member;
+            $project_member->save();
+        }
 
         return redirect()->route('project.index')->with('create', 'Project is successfully created.');
     }
@@ -97,7 +198,7 @@ class ProjectController extends Controller
 
     public function destroy($id)
     {
-        if(!auth()->user()->can('delete_project')){
+        if (!auth()->user()->can('delete_project')) {
             abort(403, 'Unauthorized action.');
         }
         $project = Project::findOrFail($id);
@@ -106,3 +207,8 @@ class ProjectController extends Controller
         return 'successd';
     }
 }
+
+// Lorem ipsum dolor sit amet consectetur adipisicing elit.
+//  Ratione ipsam iste accusamus cupiditate. Repellat qui dicta
+//   aspernatur magnam. Accusamus quisquam consequuntur unde quis
+//  dignissimos officia, placeat nulla earum quae voluptate.
