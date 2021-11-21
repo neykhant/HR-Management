@@ -19,7 +19,7 @@
                 <th class="text-center">Role (or) Deisgntion </th>
                 <th class="text-center">Is Present</th>
                 <th class="text-center no-sort">Action</th>
-                <th class="text-center hidden">Update at</th>
+                <th class="text-center no-search hidden">Update at</th>
             </thead>
         </table>
     </div>

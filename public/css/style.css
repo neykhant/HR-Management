@@ -640,11 +640,13 @@ mark {
 }
 
 .profile-thumnail2 {
+    background: #fff;
     width: 40px;
     height: 40px;
     border-radius: 10px;
     border: 1px solid #ddd;
     padding: 3px;
+    margin: 3px;
 }
 
 .abc {
@@ -726,4 +728,19 @@ mark {
     color: #000 !important;
     padding: 0 5 px !important;
     border-radius: 2 px !important;
+}
+
+.pdf-thumbnail {
+    background: #fff;
+    width: 55px;
+    height: 60px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    padding: 3px;
+    margin: 3px;
+    display: inline-block;
+    text-align: center;
+    line-height: 56px;
+    font-size: 45px;
+    color: #000;
 }

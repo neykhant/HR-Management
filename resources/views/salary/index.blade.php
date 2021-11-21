@@ -16,7 +16,7 @@
                 <th class="text-center">Year</th>
                 <th class="text-center">Amount (MMK) </th>
                 <th class="text-center no-sort">Action</th>
-                <th class="text-center hidden">Update at</th>
+                <th class="text-center no-search hidden">Update at</th>
             </thead>
         </table>
     </div>

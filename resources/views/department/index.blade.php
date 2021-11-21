@@ -14,7 +14,7 @@
                 <!-- <th class="text-center no-sort"></th> -->
                 <th class="text-center">Title</th>
                 <th class="text-center no-sort">Action</th>
-                <th class="text-center hidden">Update at</th>
+                <th class="text-center no-search hidden">Update at</th>
             </thead>
         </table>
     </div>

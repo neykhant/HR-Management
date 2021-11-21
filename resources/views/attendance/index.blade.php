@@ -16,7 +16,7 @@
                 <th class="text-center">Checkin Time</th>
                 <th class="text-center">Checkout Time</th>
                 <th class="text-center no-sort">Action</th>
-                <th class="text-center hidden">Update at</th>
+                <th class="text-center no-search hidden">Update at</th>
             </thead>
         </table>
     </div>

@@ -11,12 +11,27 @@ class Project extends Model
 
     protected $guarded = [];
     
-    protected $casts = [
-        'images' => 'array',
-        'files' => 'array'
-    ];
+    // protected $casts = [
+    //     'images' => 'array',
+    //     'files' => 'array'
+    // ];
 
     public function leaders () {
         return $this->belongsToMany(User::class, 'project_leaders', 'project_id', 'user_id');
     }
+
+    public function members(){
+        return $this->belongsToMany(User::class, 'project_members', 'project_id', 'user_id');
+    }
+
+    // public function image_path(){
+    //     if(is_array($this->images)){
+
+    //         foreach($this->images as $this->image){
+    //         return asset('storage/project/' . $this->image);
+    //         }
+    //         return null;
+    //     }
+        
+    // }
 }

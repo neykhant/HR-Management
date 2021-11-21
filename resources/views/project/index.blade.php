@@ -13,14 +13,14 @@
                 <th class="text-center no-sort no-search"></th>
                 <th class="text-center">Title</th>
                 <th class="text-center">Description</th>
-                <th class="text-center">Leaders</th>
-                <th class="text-center">Members</th>
+                <th class="text-center no-sort">Leaders</th>
+                <th class="text-center no-sort">Members</th>
                 <th class="text-center">Start Date</th>
                 <th class="text-center">Deadline</th>
                 <th class="text-center">Priority</th>
                 <th class="text-center">Status</th>
                 <th class="text-center no-sort">Action</th>
-                <th class="text-center hidden">Update at</th>
+                <th class="text-center no-search hidden">Update at</th>
             </thead>
         </table>
     </div>
@@ -90,7 +90,7 @@
                 },
             ],
             order: [
-                [3, "desc"]
+                [10, "desc"]
             ],
         });
 
