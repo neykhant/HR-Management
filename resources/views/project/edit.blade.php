@@ -34,7 +34,10 @@
                 <input type="file" name="files[]" class="form-control py-1" id="files" multiple accept="application/pdf">
                 <div class="my-2">
                     @foreach($files as $file)
-                    <a href="{{ asset('storage/project/' . $file ) }}" target="_blank" class="pdf-thumbnail"><i class="fas fa-file-pdf"></i> </a>
+                    <a href="{{ asset('storage/project/' . $file ) }}" class="pdf-thumbnail" target="_blank" >
+                    <i class="fas fa-file-pdf"></i>
+                    <p class="mb-0" >File {{ $loop->iteration }}</p>
+                </a>
                     @endforeach
                 </div>
             </div>

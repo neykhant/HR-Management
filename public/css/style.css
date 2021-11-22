@@ -730,17 +730,30 @@ mark {
     border-radius: 2 px !important;
 }
 
-.pdf-thumbnail {
+.image-thumbnail {
     background: #fff;
-    width: 55px;
-    height: 60px;
+    width: 60px;
+    height: 50px;
     border-radius: 10px;
     border: 1px solid #ddd;
     padding: 3px;
     margin: 3px;
+}
+
+.pdf-thumbnail {
+    background: #fff;
+    width: 62px;
+    height: 72px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 3px;
     display: inline-block;
     text-align: center;
-    line-height: 56px;
-    font-size: 45px;
     color: #000;
+}
+
+
+.pdf-thumbnail i {
+    font-size: 30px;
 }

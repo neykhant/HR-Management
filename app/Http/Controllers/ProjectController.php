@@ -2,9 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Department;
-use App\Http\Requests\StoreDepartmentRequest;
-use App\Http\Requests\StoreEmployeeRequest;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Project;
@@ -80,17 +77,24 @@ class ProjectController extends Controller
             })
 
             ->addColumn('action', function ($each) {
+
+                $info_icon = '';
                 $edit_icon = '';
                 $delete_icon = '';
+
+                if (auth()->user()->can('view_project')) {
+                    $info_icon = '<a href="' . route('project.show', $each->id) . '" class="text-primary"><i class="fas fa-info-circle" ></i></a>';
+                }
 
                 if (auth()->user()->can('edit_project')) {
                     $edit_icon = '<a href="' . route('project.edit', $each->id) . '" class="text-warning"><i class="far fa-edit" ></i></a>';
                 }
+
                 if (auth()->user()->can('delete_project')) {
                     $delete_icon = '<a href="#" class="text-danger delete-btn" data-id="' . $each->id . '" ><i class="fas fa-trash-alt" ></i></a>';
                 }
 
-                return '<div class="action_icon" >' . $edit_icon . $delete_icon . '</div>';
+                return '<div class="action_icon" >' . $info_icon . $edit_icon . $delete_icon . '</div>';
             })
             ->addColumn('plus-icon', function ($each) {
                 return null;
@@ -207,6 +211,21 @@ class ProjectController extends Controller
 
         return view('project.edit', compact('project', 'employees', 'images', 'files'));
     }
+
+    public function show($id)
+    {
+        if (!auth()->user()->can('view_project')) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $project = Project::findOrFail($id);
+        $images = unserialize($project->images);
+        $files = unserialize($project->file);
+        // return  $images;
+
+        return view('project.show', compact('project', 'images', 'files'));
+    }
+
 
     public function update($id, UpdateProjectRequest $request)
     {
