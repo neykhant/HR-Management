@@ -1,11 +1,7 @@
 @extends('layouts.app')
-@section('title', 'Projects')
+@section('title', 'Project')
 @section('content')
-<div>
-    @can('create_project')
-    <a href="{{ route('project.create') }}" class="btn btn-theme btn-sm"><i class="fas fa-plus-circle"></i> Create Project</a>
-    @endcan
-</div>
+
 <div class="card">
     <div class="card-body">
         <table class="table table-bordered Datatable" style="width: 100%;">
@@ -30,9 +26,10 @@
 @section('script')
 <script>
     $(document).ready(function() {
+
         var table = $('.Datatable').DataTable({
 
-            ajax: '/project/datatable/ssd',
+            ajax: '/my-project/datatable/ssd',
             columns: [{
                     data: 'plus-icon',
                     name: 'plus-icon',
@@ -93,28 +90,7 @@
                 [10, "desc"]
             ],
         });
-
-        $(document).on('click', '.delete-btn', function(e) {
-            e.preventDefault();
-            var id = $(this).data("id");
-
-            swal({
-                    text: "Are you sure want to delete ?",
-                    buttons: true,
-                    dangerMode: true,
-                })
-                .then((willDelete) => {
-                    if (willDelete) {
-                        $.ajax({
-                                method: "DELETE",
-                                url: `/project/${id}`,
-                            })
-                            .done(function(msg) {
-                                table.ajax.reload();
-                            });
-                    }
-                });
-        })
+ 
     })
 </script>
 @endsection

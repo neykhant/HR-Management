@@ -34,6 +34,8 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <!-- <link rel="stylesheet" href="{{ asset('css/material-theme-select2.css') }}"> -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ttskch/select2-bootstrap4-theme@x.x.x/dist/select2-bootstrap4.min.css">
+    <!-- image viewer js -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.10.2/viewer.min.css">
 
 
     @yield('extra_css')
@@ -144,7 +146,7 @@
                         <li>
                             <a href="{{route('attendance.index')}}">
                                 <i class="fas fa-calendar-check"></i>
-                                <span>Attendance(Employee)</span>
+                                <span>Attendance</span>
                             </a>
                         </li>
                         @endcan
@@ -225,7 +227,7 @@
                             <i class="fas fa-user-check"></i>
                             <p class="mb-0">Attendance</p>
                         </a>
-                        <a href="">
+                        <a href="{{ route('my-project.index') }}">
                             <i class="fas fa-briefcase"></i>
                             <p class="mb-0">Project</p>
                         </a>
@@ -258,6 +260,8 @@
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
     <!-- sidebar -->
+    <!-- image viewew js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.10.2/viewer.min.js"></script>
 
     <!-- Datatable -->
     <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
@@ -294,7 +298,7 @@
                 console.error('CSRF Token not found.');
             }
 
-            $(".sidebar-dropdown > a").click(function() {
+            $(".sidebar-dropdown>a").click(function() {
                 $(".sidebar-submenu").slideUp(200);
                 if (
                     $(this)

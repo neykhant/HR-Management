@@ -73,6 +73,8 @@ Route::middleware('auth')->group(function(){
 
     Route::resource('project', 'ProjectController');
     Route::get('project/datatable/ssd', 'ProjectController@ssd');
+    Route::resource('my-project', 'MyProjectController')->only(['index', 'show']);
+    Route::get('my-project/datatable/ssd', 'MyProjectController@ssd');
 
 });
 

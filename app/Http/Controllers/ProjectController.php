@@ -164,34 +164,11 @@ class ProjectController extends Controller
         $project->status = $request->status;
         $project->save();
 
-        foreach (($request->leaders ?? []) as $leader) {
-            ProjectLeader::firstOrCreate(
-                [
-                    'project_id' => $project->id,
-                    'user_id' => $leader
-                ]
-            );
 
-            // $project_leader = new ProjectLeader();
-            // $project_leader->project_id = $project->id;
-            // $project_leader->user_id = $leader;
-            // $project_leader->save();
+        $project->leaders()->sync($request->leaders);
+        $project->members()->sync($request->members);
 
-        }
 
-        foreach (($request->members ?? []) as $member) {
-            ProjectMember::firstOrCreate(
-                [
-                    'project_id' => $project->id,
-                    'user_id' => $member
-                ]
-            );
-
-            // $project_member = new ProjectMember();
-            // $project_member->project_id = $project->id;
-            // $project_member->user_id = $member;
-            // $project_member->save();
-        }
 
         return redirect()->route('project.index')->with('create', 'Project is successfully created.');
     }
@@ -225,7 +202,6 @@ class ProjectController extends Controller
 
         return view('project.show', compact('project', 'images', 'files'));
     }
-
 
     public function update($id, UpdateProjectRequest $request)
     {
@@ -276,34 +252,8 @@ class ProjectController extends Controller
         $project->status = $request->status;
         $project->update();
 
-        foreach (($request->leaders ?? []) as $leader) {
-            ProjectLeader::firstOrCreate(
-                [
-                    'project_id' => $project->id,
-                    'user_id' => $leader
-                ]
-            );
-
-            // $project_leader = new ProjectLeader();
-            // $project_leader->project_id = $project->id;
-            // $project_leader->user_id = $leader;
-            // $project_leader->save();
-
-        }
-
-        foreach (($request->members ?? []) as $member) {
-            ProjectMember::firstOrCreate(
-                [
-                    'project_id' => $project->id,
-                    'user_id' => $member
-                ]
-            );
-
-            // $project_member = new ProjectMember();
-            // $project_member->project_id = $project->id;
-            // $project_member->user_id = $member;
-            // $project_member->save();
-        }
+        $project->leaders()->sync($request->leaders);
+        $project->members()->sync($request->members);
 
         return redirect()->route('project.index')->with('update', 'Project is successfully updated.');
     }
@@ -316,12 +266,12 @@ class ProjectController extends Controller
         $project = Project::findOrFail($id);
 
         $project_leaders = ProjectLeader::where('project_id', $project->id)->get();
-        foreach($project_leaders as $project_leader){
+        foreach ($project_leaders as $project_leader) {
             $project_leader->delete();
         }
 
         $project_members = ProjectMember::where('project_id', $project->id)->get();
-        foreach($project_members as $project_member){
+        foreach ($project_members as $project_member) {
             $project_member->delete();
         }
 
