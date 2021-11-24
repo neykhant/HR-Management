@@ -2,6 +2,30 @@
 @section('title', 'Project Detail')
 @section('content')
 
+@section('extra_css')
+<style>
+    .alert-warning {
+        background-color: #fff3cd88;
+    }
+
+    .alert-info {
+        background-color: #d1ecf188;
+    }
+
+    .alert-success {
+        background-color: #d4edda88;
+    }
+
+    .task-item {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 8px;
+        margin-bottom: 5px;
+    }
+</style>
+@endsection
+
 <div class="row">
     <div class="col-md-9">
         <div class="card mb-3">
@@ -80,6 +104,136 @@
         </div>
     </div>
 
+</div>
+
+<h5>Task</h5>
+<div class="row">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header bg-warning text-white"><i class="fas fa-tasks"></i> Pending</div>
+            <div class="card-body alert-warning">
+                <div class="task-item">
+                    <div class="d-flex justify-content-between">
+                        <h6>User CRUD To Write</h6>
+                        <a href=""><i class="fas fa-ellipsis-v"></i></a>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <p class="mb-0"><i class="fas fa-clock"></i> Sep 22</p>
+                            <span class="badge badge-pill badge-danger">High</span>
+                        </div>
+                        <div>
+                            <img src="{{ auth()->user()->profile_img_path() }}" alt="" class="profile-thumnail2">
+                        </div>
+                    </div>
+                </div>
+                <div class="task-item">
+                    <div class="d-flex justify-content-between">
+                        <h6>User CRUD To Write</h6>
+                        <a href=""><i class="fas fa-ellipsis-v"></i></a>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <p class="mb-0"><i class="fas fa-clock"></i> Sep 22</p>
+                            <span class="badge badge-pill badge-danger">High</span>
+                        </div>
+                        <div>
+                            <img src="{{ auth()->user()->profile_img_path() }}" alt="" class="profile-thumnail2">
+                        </div>
+                    </div>
+                </div>
+                <div class="task-item">
+                    <div class="d-flex justify-content-between">
+                        <h6>User CRUD To Write</h6>
+                        <a href=""><i class="fas fa-ellipsis-v"></i></a>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <p class="mb-0"><i class="fas fa-clock"></i> Sep 22</p>
+                            <span class="badge badge-pill badge-danger">High</span>
+                        </div>
+                        <div>
+                            <img src="{{ auth()->user()->profile_img_path() }}" alt="" class="profile-thumnail2">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header bg-info text-white"><i class="fas fa-tasks"></i> In Progress</div>
+            <div class="card-body alert-info">
+                <div class="task-item">
+                    <div class="d-flex justify-content-between">
+                        <h6>User CRUD To Write</h6>
+                        <a href=""><i class="fas fa-ellipsis-v"></i></a>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <p class="mb-0"><i class="fas fa-clock"></i> Sep 22</p>
+                            <span class="badge badge-pill badge-danger">High</span>
+                        </div>
+                        <div>
+                            <img src="{{ auth()->user()->profile_img_path() }}" alt="" class="profile-thumnail2">
+                        </div>
+                    </div>
+                </div>
+                <div class="task-item">
+                    <div class="d-flex justify-content-between">
+                        <h6>User CRUD To Write</h6>
+                        <a href=""><i class="fas fa-ellipsis-v"></i></a>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <p class="mb-0"><i class="fas fa-clock"></i> Sep 22</p>
+                            <span class="badge badge-pill badge-danger">High</span>
+                        </div>
+                        <div>
+                            <img src="{{ auth()->user()->profile_img_path() }}" alt="" class="profile-thumnail2">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header bg-success text-white"><i class="fas fa-tasks"></i> Complete</div>
+            <div class="card-body alert-success">
+                <div class="task-item">
+                    <div class="d-flex justify-content-between">
+                        <h6>User CRUD To Write</h6>
+                        <a href=""><i class="fas fa-ellipsis-v"></i></a>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <p class="mb-0"><i class="fas fa-clock"></i> Sep 22</p>
+                            <span class="badge badge-pill badge-danger">High</span>
+                        </div>
+                        <div>
+                            <img src="{{ auth()->user()->profile_img_path() }}" alt="" class="profile-thumnail2">
+                        </div>
+                    </div>
+                </div>
+                <div class="task-item">
+                    <div class="d-flex justify-content-between">
+                        <h6>User CRUD To Write</h6>
+                        <a href=""><i class="fas fa-ellipsis-v"></i></a>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <p class="mb-0"><i class="fas fa-clock"></i> Sep 22</p>
+                            <span class="badge badge-pill badge-danger">High</span>
+                        </div>
+                        <div>
+                            <img src="{{ auth()->user()->profile_img_path() }}" alt="" class="profile-thumnail2">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 @endsection
 
