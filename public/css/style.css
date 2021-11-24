@@ -649,6 +649,16 @@ mark {
     margin: 3px;
 }
 
+.profile-thumnail3 {
+    background: #fff;
+    width: 30px;
+    height: 30px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    padding: 3px;
+    margin: 3px;
+}
+
 .abc {
     width: 100%;
 }
@@ -753,7 +763,12 @@ mark {
     color: #000;
 }
 
-
 .pdf-thumbnail i {
     font-size: 30px;
+}
+
+/* ---------sweet alert 2---------------- */
+
+.swal2-title{
+    font-size: 20px !important;
 }
