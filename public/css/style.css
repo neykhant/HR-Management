@@ -740,6 +740,10 @@ mark {
     border-radius: 2 px !important;
 }
 
+.select2-container--bootstrap4 .select2-selection--multiple .select2-search__field {
+    margin: 0 -12px !important;
+}
+
 .image-thumbnail {
     background: #fff;
     width: 60px;

@@ -24,6 +24,10 @@ class Project extends Model
         return $this->belongsToMany(User::class, 'project_members', 'project_id', 'user_id');
     }
 
+    public function tasks(){
+        return $this->hasMany(Task::class, 'project_id', 'id');
+    }
+
     // public function image_path(){
     //     if(is_array($this->images)){
 
