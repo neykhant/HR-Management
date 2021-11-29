@@ -27,6 +27,18 @@
     .text-members {
         font-size: 16px;
     }
+
+    .ghost{
+        background: #eee !important;
+        border: 2px dashed black !important;
+        /* border-style: dashed; */
+    }
+
+    .handle{
+        cursor: move;
+        cursor: -webkit-grabbing;
+    }
+
 </style>
 @endsection
 
@@ -241,6 +253,8 @@
 @endsection
 
 @section('script')
+<!-- jsDelivr :: Sortable :: Latest (https://www.jsdelivr.com/package/npm/sortablejs) -->
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
 
 <script>
     $(document).ready(function() {
@@ -249,7 +263,36 @@
         var leaders = @json($project -> leaders);
         var members = @json($project -> members);
 
-        taskData();
+        function initSortable(){
+            var pendingTaskBoard = document.getElementById('pendingTaskBoard');
+            var inProgressTaskBoard = document.getElementById('inProgressTaskBoard');
+            var completeTaskBoard = document.getElementById('completeTaskBoard');
+
+            var sortable = Sortable.create(pendingTaskBoard,{
+                group: "taskBoard",  
+                ghostClass: "ghost",
+                // handle: ".handle",
+                draggable: ".task-item",
+                animation: 200,
+            });
+
+            var sortable = Sortable.create(inProgressTaskBoard,{
+                group: "taskBoard",  
+                ghostClass: "ghost",
+                // handle: ".handle",
+                draggable: ".task-item",
+                animation: 200,
+            });
+
+            var sortable = Sortable.create(completeTaskBoard,{
+                group: "taskBoard",  
+                ghostClass: "ghost",
+                // handle: ".handle",
+                draggable: ".task-item",
+                animation: 200,
+            });
+
+        }
 
         function taskData() {
             $.ajax({
@@ -257,9 +300,13 @@
                 type: 'GET',
                 success: function(res) {
                     $('.task-data').html(res);
+                    initSortable();
                 }
             });
         }
+
+        taskData();
+
         new Viewer(document.getElementById('images'));
 
         $(document).on('click', '.add_pending_task_btn', function(event) {
@@ -664,6 +711,8 @@
                     }
                 });
         });
+
+        
     })
 </script>
 @endsection

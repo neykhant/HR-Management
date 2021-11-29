@@ -2,7 +2,7 @@
     <div class="col-md-4">
         <div class="card">
             <div class="card-header bg-warning text-white"><i class="fas fa-tasks"></i> Pending</div>
-            <div class="card-body alert-warning">
+            <div class="card-body alert-warning" id="pendingTaskBoard">
 
                 @foreach( collect($project->tasks)->where('status' , 'pending') as $task )
                 <div class="task-item">
@@ -42,7 +42,7 @@
     <div class="col-md-4">
         <div class="card">
             <div class="card-header bg-info text-white"><i class="fas fa-tasks"></i> In Progress</div>
-            <div class="card-body alert-info">
+            <div class="card-body alert-info" id="inProgressTaskBoard">
 
                 @foreach( collect($project->tasks)->where('status' , 'in_progress') as $task )
                 <div class="task-item">
@@ -83,7 +83,7 @@
     <div class="col-md-4">
         <div class="card">
             <div class="card-header bg-success text-white"><i class="fas fa-tasks"></i> Complete</div>
-            <div class="card-body alert-success">
+            <div class="card-body alert-success" id="completeTaskBoard">
 
                 @foreach( collect($project->tasks)->where('status' , 'complete') as $task )
                 <div class="task-item">
