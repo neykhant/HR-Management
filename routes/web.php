@@ -78,4 +78,6 @@ Route::middleware('auth')->group(function () {
 
      Route::resource('task', 'TaskController');
      Route::get('task-data', 'TaskController@taskData');
+
+     Route::post('task-draggable', 'TaskController@taskDraggable');
 });

@@ -274,6 +274,26 @@
                 // handle: ".handle",
                 draggable: ".task-item",
                 animation: 200,
+                store: {
+                    set: function(sortable){
+                        var order = sortable.toArray();
+                        localStorage.setItem('pendingTaskBoard', order.join(','));
+                    }
+                },
+                onSort: function(evt){
+                    setTimeout(function(){
+                        var pendingTaskBoard =localStorage.getItem('pendingTaskBoard');
+                        console.log(pendingTaskBoard);
+
+                        $.ajax({
+                            url:`/task-draggable?project_id=${project_id}&pendingTaskBoard=${pendingTaskBoard}`,
+                            type:'POST',
+                            success: function(res){
+                                // console.log(res);
+                            }
+                        })
+                    }, 1000);
+                }
             });
 
             var sortable = Sortable.create(inProgressTaskBoard,{
@@ -282,6 +302,26 @@
                 // handle: ".handle",
                 draggable: ".task-item",
                 animation: 200,
+                store: {
+                    set: function(sortable){
+                        var order = sortable.toArray();
+                        localStorage.setItem('inProgressTaskBoard', order.join(','));
+                    }
+                },
+                onSort: function(evt){
+                    setTimeout(function(){
+                        var inProgressTaskBoard =localStorage.getItem('inProgressTaskBoard');
+                        console.log(inProgressTaskBoard);
+
+                        $.ajax({
+                            url:`/task-draggable?project_id=${project_id}&inProgressTaskBoard=${inProgressTaskBoard}`,
+                            type:'POST',
+                            success: function(res){
+                                // console.log(res);
+                            }
+                        })
+                    }, 1000);
+                }
             });
 
             var sortable = Sortable.create(completeTaskBoard,{
@@ -290,6 +330,26 @@
                 // handle: ".handle",
                 draggable: ".task-item",
                 animation: 200,
+                store: {
+                    set: function(sortable){
+                        var order = sortable.toArray();
+                        localStorage.setItem('completeTaskBoard', order.join(','));
+                    }
+                },
+                onSort: function(evt){
+                    setTimeout(function(){
+                        var completeTaskBoard =localStorage.getItem('completeTaskBoard');
+                        console.log(completeTaskBoard);
+
+                        $.ajax({
+                            url:`/task-draggable?project_id=${project_id}&completeTaskBoard=${completeTaskBoard}`,
+                            type:'POST',
+                            success: function(res){
+                                // console.log(res);
+                            }
+                        })
+                    }, 1000);
+                }
             });
 
         }
@@ -379,7 +439,7 @@
                         data: form_data,
                         success: function(res) {
                             taskData();
-                            console.log(res);
+                            // console.log(res);
                         }
                     });
                 }
@@ -473,7 +533,7 @@
                         data: form_data,
                         success: function(res) {
                             taskData();
-                            console.log(res);
+                            // console.log(res);
                         }
                     });
                 }
@@ -566,7 +626,7 @@
                         data: form_data,
                         success: function(res) {
                             taskData();
-                            console.log(res);
+                            // console.log(res);
                         }
                     });
                 }

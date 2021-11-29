@@ -36,7 +36,6 @@ class TaskController extends Controller
 
     public function update($id, Request $request)
     {
-
         $task = Task::findOrFail($id);
         $task->title = $request->title;
         $task->description = $request->description;
@@ -53,9 +52,55 @@ class TaskController extends Controller
     {
         $task = Task::findOrFail($id);
         $task->members()->detach();
-        
+
         $task->delete();
 
         return 'success delete';
+    }
+
+    public function taskDraggable(Request $request)
+    {
+        // return $request->all();
+
+        $project = Project::with('tasks')->where('id', $request->project_id)->firstOrFail();
+
+        if ($request->pendingTaskBoard) {
+            $pendingTaskBoard = explode(',', $request->pendingTaskBoard);
+            foreach ($pendingTaskBoard as $key => $task_id) {
+                $task = collect($project->tasks)->where('id', $task_id)->first();
+                if ($task) {
+                    $task->serial_number = $key;
+                    $task->status = 'pending';
+                    $task->update();
+                }
+            }
+        }
+        //for inprogresstask
+        if ($request->inProgressTaskBoard) {
+            $inProgressTaskBoard = explode(',', $request->inProgressTaskBoard);
+            foreach ($inProgressTaskBoard as $key => $task_id) {
+                $task = collect($project->tasks)->where('id', $task_id)->first();
+                if ($task) {
+                    $task->serial_number = $key;
+                    $task->status = 'in_progress';
+                    $task->update();
+                }
+            }
+        }
+
+        //for completetask
+        if ($request->completeTaskBoard) {
+            $completeTaskBoard = explode(',', $request->completeTaskBoard);
+            foreach ($completeTaskBoard as $key => $task_id) {
+                $task = collect($project->tasks)->where('id', $task_id)->first();
+                if ($task) {
+                    $task->serial_number = $key;
+                    $task->status = 'complete';
+                    $task->update();
+                }
+            }
+        }
+
+        return 'success';
     }
 }
