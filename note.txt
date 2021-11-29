@@ -5,3 +5,5 @@ Main Background - #EDF2F6
 box-shadow: 0 .5rem 1rem rgba(0,0,0, .15) !important;
 box-shadow: - 3px 8px rgba(0 0 0 / 15%);
 
+<!-- <a href="" class="edit_task_btn text-warning" data-task="{{ base64_encode(json_encode($task, JSON_HEX_APOS)) }}" data-task-members="{{base64(json_encode( collect($task->members)->pluck('id')->toArray() )) }}" ><i class="far fa-edit"></i></a> -->
+

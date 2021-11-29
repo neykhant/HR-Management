@@ -263,17 +263,21 @@ class ProjectController extends Controller
         if (!auth()->user()->can('delete_project')) {
             abort(403, 'Unauthorized action.');
         }
+
         $project = Project::findOrFail($id);
 
-        $project_leaders = ProjectLeader::where('project_id', $project->id)->get();
-        foreach ($project_leaders as $project_leader) {
-            $project_leader->delete();
-        }
+        $project->leaders()->detach();
+        $project->members()->detach();
 
-        $project_members = ProjectMember::where('project_id', $project->id)->get();
-        foreach ($project_members as $project_member) {
-            $project_member->delete();
-        }
+        // $project_leaders = ProjectLeader::where('project_id', $project->id)->get();
+        // foreach ($project_leaders as $project_leader) {
+        //     $project_leader->delete();
+        // }
+
+        // $project_members = ProjectMember::where('project_id', $project->id)->get();
+        // foreach ($project_members as $project_member) {
+        //     $project_member->delete();
+        // }
 
         $project->delete();
 

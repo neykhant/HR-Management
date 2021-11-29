@@ -776,3 +776,35 @@ mark {
 .swal2-title{
     font-size: 20px !important;
 }
+
+/* ------------------task ------------------------- */
+
+.task-item {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 8px;
+    margin-bottom: 5px;
+}
+
+.add_task_btn {
+    display: block;
+    text-align: center;
+    padding: 10px;
+    color: #000;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+
+}
+
+.task-action a{
+    width: 25px;
+    height: 25px;
+    background: #eee;
+    display: inline-block;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 28px;
+    font-size: 12px;
+}

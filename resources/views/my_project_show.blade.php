@@ -16,25 +16,6 @@
         background-color: #d4edda88;
     }
 
-    .task-item {
-        background-color: #fff;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        padding: 8px;
-        margin-bottom: 5px;
-    }
-
-    .add_task_btn {
-        display: block;
-        text-align: center;
-        padding: 10px;
-        color: #000;
-        background-color: #fff;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-
-    }
-
     .md-form label {
         position: relative !important;
     }
@@ -61,7 +42,7 @@
                 </p>
                 <p class="mb-4">
                     Priority :
-                     @if( $project->priority == 'high')
+                    @if( $project->priority == 'high')
                     <span class="badge badge-pill badge-danger">High</span>
                     @elseif($project->priority == 'middle')
                     <span class="badge badge-pill badge-info">Middle</span>
@@ -124,9 +105,16 @@
         </div>
     </div>
 
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <h5>Task</h5>
+                <div class="task-data"></div>
+            </div>
+        </div>
+    </div>
 </div>
 
-<h5>Task</h5>
 
 <!-- <div class="row">
     <div class="col-md-4">
@@ -247,7 +235,8 @@
     </div>
 </div> -->
 
-<div class="task-data"></div>
+<!-- <h5>Task</h5>
+<div class="task-data"></div> -->
 
 @endsection
 
@@ -264,9 +253,9 @@
 
         function taskData() {
             $.ajax({
-                url:`/task-data?project_id=${project_id}`,
-                type:'GET',
-                success:function(res){
+                url: `/task-data?project_id=${project_id}`,
+                type: 'GET',
+                success: function(res) {
                     $('.task-data').html(res);
                 }
             });
@@ -334,7 +323,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     var form_data = $('#pending_task_form').serialize();
-                    
+
                     // console.log(form_data);
 
                     $.ajax({
@@ -364,6 +353,7 @@
                 placeholder: '-- Please Choose --',
                 theme: 'bootstrap4',
             });
+
         });
 
         $(document).on('click', '.add_in_progress_task_btn', function(event) {
@@ -427,7 +417,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     var form_data = $('#in_progress_task_form').serialize();
-                    
+
                     // console.log(form_data);
 
                     $.ajax({
@@ -520,7 +510,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     var form_data = $('#complete_task_form').serialize();
-                    
+
                     // console.log(form_data);
 
                     $.ajax({
@@ -550,6 +540,129 @@
                 placeholder: '-- Please Choose --',
                 theme: 'bootstrap4',
             });
+        });
+
+        $(document).on('click', '.edit_task_btn', function(event) {
+            event.preventDefault();
+
+            var task = $(this).data('task');
+
+            var task_members = $(this).data('task-members');
+            console.log(task_members);
+
+            var task_members_options = '';
+            leaders.forEach(function(leader) {
+                task_members_options += `<option value="${leader.id}" ${(task_members.includes(leader.id) ? 'selected' : '' )}  >${leader.name}</option>`;
+            });
+            members.forEach(function(member) {
+                task_members_options += `<option value="${member.id}" ${(task_members.includes(member.id) ? 'selected' : '' )}  >${member.name}</option>`;
+            });
+
+            Swal.fire({
+                title: 'Add Pending Task.',
+                html: `
+                <form id="edit_task_form" >
+                <input type="hidden" name="project_id" value="${project_id}" />
+
+                    <div class="md-form text-left" >
+                        <label>Title</label>
+                        <input type="text" name="title" class="form-control" value="${task.title}"/>
+                    </div>
+
+                    <div class="md-form text-left" >
+                        <label>Description</label>
+                        <textarea name="description" class="form-control md-textarea" rows="3" >
+                        ${task.description}
+                        </textarea>
+                    </div>
+
+                    <div class="md-form text-left">
+                        <label for="">Start Date</label>
+                        <input type="text" name="start_date" class="form-control datepicker" value="${task.start_date}">
+                    </div>
+
+                    <div class="md-form text-left">
+                        <label for="">Deadline</label>
+                        <input type="text" name="deadline" class="form-control datepicker" value="${task.deadline}">
+                    </div>
+
+                    <div class="form-group text-left">
+                    <label for="" class="text-members" >Member</label>
+                    <select name="members[]" id="" class="form-control select-ninja" multiple>
+                        <option value="">-- Please Choose --</option>
+                        ${task_members_options}
+                    </select>
+                    </div>
+                    <div class="md-form text-left">
+                        <label for="">Priority</label>
+                        <select name="priority" class="form-control select-ninja">
+                            <option value="">-- Please Choose --</option>
+                            <option value="high" ${(task.priority == 'high' ? 'selected' : '') } >High</option>
+                            <option value="middle" ${(task.priority == 'middle' ? 'selected' : '') }>Middle</option>
+                            <option value="low" ${(task.priority == 'low' ? 'selected' : '') }>Low</option>
+                        </select>
+                    </div>
+                </form>
+                `,
+                showCancelButton: false,
+                confirmButtonText: 'Comfirm',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    var form_data = $('#edit_task_form').serialize();
+
+                    // console.log(form_data);
+
+                    $.ajax({
+                        url: `/task/${task.id}`,
+                        type: 'PUT',
+                        data: form_data,
+                        success: function(res) {
+                            taskData();
+                            // console.log(res);
+                        }
+                    });
+                }
+            })
+
+            $('.datepicker').daterangepicker({
+                "singleDatePicker": true,
+                "autoApply": true,
+                "showDropdowns": true,
+                "opens": "right",
+                "drops": "up",
+                "locale": {
+                    "format": "YYYY-MM-DD",
+                }
+            });
+
+            $('.select-ninja').select2({
+                placeholder: '-- Please Choose --',
+                theme: 'bootstrap4',
+            });
+
+        });
+
+        $(document).on('click', '.delete_task_btn', function(e) {
+            e.preventDefault();
+            var id = $(this).data("id");
+
+            swal({
+                    text: "Are you sure want to delete ?",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        $.ajax({
+                                url: `/task/${id}`,
+                                method: "DELETE",
+                            })
+                            .done(function(msg) {
+                                taskData();
+                                // table.ajax.reload();
+                            });
+                    }
+                });
         });
     })
 </script>

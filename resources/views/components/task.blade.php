@@ -8,7 +8,10 @@
                 <div class="task-item">
                     <div class="d-flex justify-content-between">
                         <h6>{{$task->title}}</h6>
-                        <a href=""><i class="fas fa-ellipsis-v"></i></a>
+                        <div class="task-action">
+                            <a href="" class="edit_task_btn text-warning" data-task="{{json_encode($task, JSON_HEX_APOS) }}" data-task-members="{{json_encode( collect($task->members)->pluck('id')->toArray() ) }}" ><i class="far fa-edit"></i></a>
+                            <a href="" class="delete_task_btn text-danger" data-id="{{$task->id}}" ><i class="fas fa-trash-alt"></i></a>
+                        </div>
                     </div>
                     <div class="d-flex justify-content-between align-items-end ">
                         <div>
@@ -45,7 +48,10 @@
                 <div class="task-item">
                     <div class="d-flex justify-content-between">
                         <h6>{{$task->title}}</h6>
-                        <a href=""><i class="fas fa-ellipsis-v"></i></a>
+                        <div class="task-action">
+                            <a href="" class="edit_task_btn text-warning" data-task="{{json_encode($task, JSON_HEX_APOS) }}" data-task-members="{{json_encode( collect($task->members)->pluck('id')->toArray() ) }}" ><i class="far fa-edit"></i></a>
+                            <a href="" class="delete_task_btn text-danger"><i class="fas fa-trash-alt"></i></a>
+                        </div>
                     </div>
                     <div class="d-flex justify-content-between align-items-end ">
                         <div>
@@ -83,7 +89,10 @@
                 <div class="task-item">
                     <div class="d-flex justify-content-between">
                         <h6>{{$task->title}}</h6>
-                        <a href=""><i class="fas fa-ellipsis-v"></i></a>
+                        <div class="task-action">
+                            <a href="" class="edit_task_btn text-warning" data-task="{{json_encode($task, JSON_HEX_APOS) }}" data-task-members="{{json_encode( collect($task->members)->pluck('id')->toArray() ) }}" ><i class="far fa-edit"></i></a>
+                            <a href="" class="delete_task_btn text-danger"><i class="fas fa-trash-alt"></i></a>
+                        </div>
                     </div>
                     <div class="d-flex justify-content-between align-items-end ">
                         <div>
