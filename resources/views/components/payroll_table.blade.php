@@ -34,31 +34,40 @@
                         $attendance = collect($attendances)->where('user_id', $employee->id)->where('date', $period->format('Y-m-d'))->first();
 
                         if($attendance){
-                            if($attendance->checkin_time < $office_start_time)
-                             {
-                                $attendanceDays += 0.5;
 
-                            }else if($attendance->checkin_time > $office_start_time && $attendance->checkin_time < $break_start_time)
+                            
 
-                            { 
-                                $attendanceDays += 0.5;
-                            }else{ 
-                                $attendanceDays += 0;
-                            }
+                                if($attendance->checkin_time < $office_start_time)
+                                {
+                                    $attendanceDays += 0.5;
 
-                        if($attendance->checkout_time < $break_end_time){
-                            $attendanceDays += 0;
-
-                             }else if($attendance->checkout_time > $break_start_time && $attendance->checkout_time < $office_end_time)
-                             { 
-                                $attendanceDays += 0.5;
-                            }else{
-                                $attendanceDays += 0.5;
+                                }else if($attendance->checkin_time > $office_start_time && $attendance->checkin_time < $break_start_time)
+                                { 
+                                    $attendanceDays += 0.5;
+                                }else{ 
+                                    $attendanceDays += 0;
                                 }
+                            
+
+                            
+                            
+                            
+                            if($attendance->checkout_time < $break_end_time){
+                            
+                                $attendanceDays += 0;
+
+                                }else if($attendance->checkout_time > $break_start_time && $attendance->checkout_time < $office_end_time)
+                                { 
+                                    $attendanceDays += 0.5;
+                                }else{
+                                    $attendanceDays += 0.5;
+                                }
+                            
+
 
                          }
-                            @endphp
-                            @endif 
+                        @endphp
+                        @endif 
                         @endforeach
 
                         @php
