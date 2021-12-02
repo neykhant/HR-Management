@@ -35,8 +35,7 @@
 
                         if($attendance){
 
-                            
-
+                            if($attendance->checkin_time){
                                 if($attendance->checkin_time < $office_start_time)
                                 {
                                     $attendanceDays += 0.5;
@@ -47,23 +46,28 @@
                                 }else{ 
                                     $attendanceDays += 0;
                                 }
-                            
+                            }else{
+                                $attendanceDays += 0;
+                            }
 
+                                
                             
-                            
-                            
+                            if($attendance->checkout_time){
                             if($attendance->checkout_time < $break_end_time){
                             
+                            $attendanceDays += 0;
+
+                            }else if($attendance->checkout_time > $break_start_time && $attendance->checkout_time < $office_end_time)
+                            { 
+                                $attendanceDays += 0.5;
+                            }else{
+                                $attendanceDays += 0.5;
+                            }
+                            }else{
                                 $attendanceDays += 0;
-
-                                }else if($attendance->checkout_time > $break_start_time && $attendance->checkout_time < $office_end_time)
-                                { 
-                                    $attendanceDays += 0.5;
-                                }else{
-                                    $attendanceDays += 0.5;
-                                }
+                            }
                             
-
+                                
 
                          }
                         @endphp

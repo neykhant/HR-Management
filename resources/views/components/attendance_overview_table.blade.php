@@ -26,7 +26,7 @@
                         if($attendance){
 
 
-                            if($attendance->checkin_time){
+                            if(!is_null($attendance->checkin_time)){
 
                                 if($attendance->checkin_time < $office_start_time) { $checkin_icon='<i class="fas fa-check-circle text-success"></i>' ; }else if($attendance->checkin_time > $office_start_time && $attendance->checkin_time < $break_start_time){ $checkin_icon='<i class="fas fa-check-circle text-warning"></i>' ; }else{ $checkin_icon='<i class="fas fa-times-circle text-danger"></i>' ; }
                             }else{
@@ -35,7 +35,7 @@
 
 
 
-                            if($attendance->checkout_time ){
+                            if(!is_null($attendance->checkout_time)){
 
                                 if($attendance->checkout_time < $break_end_time){ $checkout_icon='<i class="fas fa-times-circle text-danger"></i>' ; }else if($attendance->checkout_time > $break_start_time && $attendance->checkout_time < $office_end_time){ $checkout_icon='<i class="fas fa-check-circle text-warning"></i>' ; }else{ $checkout_icon='<i class="fas fa-check-circle text-success"></i>' ; } 
                             }else{
